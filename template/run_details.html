@@ -1,0 +1,1250 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Run Details</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            color: #444;
+            text-align: center;
+            padding: 10px 0;
+
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:hover {
+            background-color: #ddd;
+        }
+        .artifact-link {
+            color: blue;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+        .cart-form input[type="submit"] {
+            display: inline-block;
+            font-size: 16px;
+            padding: 10px 30px;
+            color: #fff;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.5s ease;
+            margin: 20px 0;
+        }
+        .cart-form input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .site__spacer{
+            height: 72px;
+        }
+        .bar {
+        fill: steelblue;
+        }
+        .tooltip {
+                    position: absolute;
+                    text-align: center;
+                    width: 120px;
+                    height: 28px;
+                    padding: 2px;
+                    font: 12px sans-serif;
+                    background: lightsteelblue;
+                    border: 0px;
+                    border-radius: 8px;
+                    pointer-events: none;
+        }
+        .axis text {
+            font: 10px sans-serif;
+        }
+
+        .axis .domain {
+            display: none;
+        }
+            /* Table styling */
+    .custom-table, .custom-table tr, .custom-table td {
+        border-spacing: 10px;
+        border: none !important;
+        border-collapse: collapse;
+
+    }
+    .custom-table tr:hover {
+        background-color:#EEF2F6;
+    }
+
+    /* Button styling */
+    .btn {
+        padding: 8px 12px;
+        border-radius: 5px;
+        transition: background-color 0.3s, box-shadow 0.3s;
+    }
+
+    .btn-primary:hover {
+        background-color: #6fa200;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+
+.ui-input-container {
+  background-color: #fff;
+  padding: 3rem;
+  border-radius: 4px;
+  width: 50%;
+  margin: 0 auto;
+}
+.ui-form-input-container {
+  position: relative;
+  font-size: 1rem;
+  margin-bottom: 15px;
+  display: block;
+}
+.ui-input-container h2 {
+  font-family: sans-serif;
+  margin-bottom: 20px;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+.ui-form-input {
+  padding: 13px 5px;
+  border-radius: 8px;
+  border: 2px solid #1a73e8;
+  outline: 0;
+  width: 100%;
+}
+
+.form-input-label {
+  position: absolute;
+  top: -7px;
+  left: 10px;
+  color: #1a73e8;
+  font-size: 0.85rem;
+  padding-right: 0.33rem;
+  padding-left: 0.33rem;
+  background: #fff;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: sans-serif;
+  text-transform: capitalize;
+}
+
+.ui-form-btn {
+  padding: 13px 15px;
+  border-radius: 8px;
+  background: #1a73e8;
+  outline: 0;
+  width: 100%;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  color: white;
+  font-weight: 500;
+}
+
+.error .ui-form-input,
+.error .form-input-label {
+  border-color: #d50000;
+  color: #d50000;
+}
+
+textarea {
+  min-height: 6em;
+  max-height: 50vh;
+  width: 100%;
+}
+ .fill:hover, .fill:focus {
+	 box-shadow: inset 0 0 0 2em var(--hover);
+}
+ .pulse:hover, .pulse:focus {
+	 animation: pulse 1s;
+	 box-shadow: 0 0 0 2em transparent;
+}
+ @keyframes pulse {
+	 0% {
+		 box-shadow: 0 0 0 0 var(--hover);
+	}
+}
+ .close:hover, .close:focus {
+	 box-shadow: inset -3.5em 0 0 0 var(--hover), inset 3.5em 0 0 0 var(--hover);
+}
+ .raise:hover, .raise:focus {
+	 box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+	 transform: translateY(-0.25em);
+}
+ .up:hover, .up:focus {
+	 box-shadow: inset 0 -3.25em 0 0 var(--hover);
+}
+ .slide:hover, .slide:focus {
+	 box-shadow: inset 6.5em 0 0 0 var(--hover);
+}
+ .offset {
+	 box-shadow: 0.3em 0.3em 0 0 var(--color), inset 0.3em 0.3em 0 0 var(--color);
+}
+ .offset:hover, .offset:focus {
+	 box-shadow: 0 0 0 0 var(--hover), inset 6em 3.5em 0 0 var(--hover);
+}
+ .fill {
+	 --color: #e35b6b;
+	 --hover: #f14146;
+}
+ .pulse {
+	 --color: #ef6eae;
+	 --hover: #ef8f6e;
+}
+ .close {
+	 --color: #ff7f82;
+	 --hover: #ffdc7f;
+}
+ .raise {
+	 --color: #ffa260;
+	 --hover: #e5ff60;
+}
+ .up {
+	 --color: #6fa200;
+	 --hover: #94e458;
+}
+ .slide {
+	 --color: #8fc866;
+	 --hover: #66c887;
+}
+ .offset {
+	 --color: #19bc8b;
+	 --hover: #1973bc;
+}
+ button {
+	 color: var(--color);
+	 transition: 0.25s;
+}
+ button:hover, button:focus {
+	 border-color: var(--hover);
+	 color: #fff;
+}
+
+ button {
+	 background: none;
+	 border: 2px solid;
+	 font: inherit;
+	 line-height: 1;
+	 margin: 0.5em;
+	 padding: 1em 2em;
+}
+ h1 {
+	 font-weight: 400;
+}
+ code {
+	 color: #e4cb58;
+	 font: inherit;
+}
+ul.flashes {
+    list-style-type: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+ul.flashes li {
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+ul.flashes li.warning {
+    background-color: #ffcccb;
+    color: #a00;
+    border: 1px solid #d40000;
+}
+
+ul.flashes li.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+    .bar {
+        fill: steelblue;
+    }
+    .bar:hover {
+        fill: darkorange;
+    }
+    .tooltip {
+        position: absolute;
+        width: auto;
+        text-align: center;
+        padding: 2px;
+        font: 10px sans-serif;
+        background: lightsteelblue;
+        border: 0px;
+        border-radius: 8px;
+        pointer-events: none;
+    }
+#paramsTable {
+            display: none;
+            margin-top: 10px;
+        }
+.dropdown-header {
+            cursor: pointer;
+            user-select: none;
+        }
+        .dropdown-header::after {
+            content: '⇩';
+            float: left;
+            margin-left: -22px;
+            transition: transform 0.3s ease;
+        }
+        .active::after {
+            transform: rotate(180deg);
+        }
+#performance_container:-webkit-full-screen {
+  background-color: white;
+}
+#performance_container:-moz-full-screen {
+  background-color: white;
+}
+#performance_container:fullscreen {
+  background-color: white;
+}
+.toggle-button-cover {
+  display: table-cell;
+  position: relative;
+  width: 200px;
+  height: 40px;
+  box-sizing: border-box;
+}
+
+.knobs,
+.layer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.button.r {
+  position: relative;
+  top: 10%;
+  width: 74px;
+  height: 42px;
+  margin: -20px auto 0 auto;
+  overflow: hidden;
+}
+
+.button.r,
+.button.r .layer {
+  border-radius: 100px;
+}
+
+.button.b2 {
+  border-radius: 2px;
+}
+
+.checkbox {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 3;
+}
+
+.knobs {
+  z-index: 2;
+}
+
+.layer {
+  width: 100%;
+  background-color: #ebf7fc;
+  transition: 0.3s ease all;
+  z-index: 1;
+}
+
+/* Button 4 */
+#button-4 .knobs:before,
+#button-4 .knobs:after {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 50px;
+  height: 40px;
+  color: black;
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 1;
+  padding: 9px 4px;
+  background-color: #03a9f4;
+  border-radius: 50%;
+  transition: 0.3s cubic-bezier(0.18, 0.89, 0.35, 1.15) all;
+}
+
+#button-4 .knobs:before {
+  content: "Apex";
+}
+
+#button-4 .knobs:after {
+  content: "High";
+}
+
+#button-4 .knobs:after {
+  top: -28px;
+  right: 4px;
+  left: auto;
+  background-color: #92D0B9;
+}
+
+#button-4 .checkbox:checked + .knobs:before {
+  top: -28px;
+}
+
+#button-4 .checkbox:checked + .knobs:after {
+  top: 4px;
+}
+
+#button-4 .checkbox:checked ~ .layer {
+  background-color: #fcebeb;
+}
+
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/heatmap.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script>
+        function navigateTo(url) {
+            window.location.href = url;
+        }
+
+        function showMessage(message) {
+            alert(message);
+        }
+    </script>
+
+</head>
+{% include 'navbar.html' %}
+<body>
+    <div class="site__spacer"></div>
+    <div class="container">
+        <div style="background-color: #eef2f7; padding: 15px; border-radius: 6px; box-shadow: 0 3px 5px rgba(0,0,0,0.1); margin-bottom: 20px;">
+            <h1 class="mb-4" style="font-family: 'Arial', sans-serif; font-weight: bold; color: #333; display: flex; align-items: center;">
+                <i class="fas fa-info-circle" style="margin-right: 10px; font-size: 24px;"></i> Run Details
+            </h1>
+        </div>
+                    {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                    <ul class=flashes>
+                        {% for category, message in messages %}
+                        <li class="{{ category }}">{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                    {% endwith %}
+                <table>
+
+            <tr>
+                <th>Run ID</th>
+                <td>{{ run_info.run_id }}</td>
+            </tr>
+            <tr>
+                <th>Run Name</th>
+                <td>{{run_info.run_name}}</td>
+            </tr>
+            <tr>
+                <th>Run Description</th>
+                <td>{{run_description}}</td>
+            </tr>
+            <tr>
+                <th>Experiment ID</th>
+                <td>{{ run_info.experiment_id }}</td>
+            </tr>
+            <tr>
+                <th>Status</th>
+                <td>{{ run_info.status }}</td>
+            </tr>
+            <tr>
+                <th>Start Time</th>
+                <td>{{ run_starttime_str }}</td>
+            </tr>
+            <tr>
+                <th>End Time</th>
+                <td>{{ run_endtime_str }}</td>
+            </tr>
+
+            <tr>
+                <th>Training Duration</th>
+                <td>{{ run_duration_in_seconds }}s</td>
+            </tr>
+
+            <tr>
+                <th>Model Parameters</th>
+                <td>
+                           <div class="dropdown-header" onclick="toggleDisplay()">
+                                Parameters
+                            </div>
+                            <div id="paramsTable">
+                                <table border="1">
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Value</th>
+                                    </tr>
+                                    {% for param_name, param_value in run_params.items() %}
+                                    <tr>
+                                        <td>{{ param_name }}</td>
+                                        <td>{{ param_value }}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </table>
+                            </div>
+                </td>
+            </tr>
+
+            <tr>
+                <th>Additional Artifacts</th>
+                <td>
+                    <div class="dropdown mt-3">
+                                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownArtifactsButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Additional Artifacts
+                                </button>
+                                <div class="dropdown-menu custom-dropdown-position" aria-labelledby="dropdownArtifactsButton">
+                                    {% for artifact, link in artifacts.items() %}
+                                        {% if artifact != "shap_values.json" %}
+                                            <a class="dropdown-item" href="{{link}}" target="_blank"><i class="fas fa-file mr-2"></i>{{ artifact }}</a>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+
+                    </div>
+                </td>
+            </tr>
+
+        </table>
+<!--To activate the selection between ApexChart and HighChart, uncomment below toggle button-->
+<!--<div class="toggle-button-cover">-->
+<!--            <div class="button r" id="button-4">-->
+<!--              <input type="checkbox" class="checkbox" id="DvToggle"/>-->
+<!--              <div class="knobs"></div>-->
+<!--              <div class="layer"></div>-->
+<!--            </div>-->
+<!--        </div>-->
+<div class="container">
+
+    <h2 class="mb-4">Detailed Artifacts</h2>
+    <ul class="list-group" style=" padding-left: 0;">
+            <li class="list-group-item">
+                      <div id="performance_container-apexchart" style="width:100%; height:400px; display: block;"></div>
+                      <div id="performance_container-highchart" style="width:100%; height:400px; display: none;"></div>
+                      <div id="dataTableContainer" style="display: none;"></div>
+                {% for artifact, link in artifacts.items() %}
+                {% if artifact == "shap_values.json" %}
+                <div id="shapValuesBarChartRace-apexchart"  style="text-align: center; margin-top: 50px; margin-bottom: 50px; display: block;"></div>
+                <div id="shapValuesBarChartRace-highchart"  style="text-align: center; margin-top: 50px; margin-bottom: 50px; display: none;">
+                </div>
+
+<script>
+fetch("{{ link }}")
+    .then(response => response.json())
+    .then(data => {
+        const shap_categories_apex = [];
+        const shap_dataSeries_apex = [];
+        const shap_barColors_apex = ['#007bff', '#6610f2', '#6f42c1', '#e83e8c', '#fd7e14', '#ffc107', '#28a745', '#20c997', '#17a2b8', '#dc3545'];
+
+        Object.entries(data)
+            .sort((a, b) => b[1] - a[1])
+            .forEach(([key, value], index) => {
+                shap_categories_apex.push(key);
+
+                shap_dataSeries_apex.push({
+                    x: key,
+                    y: value,
+                    fillColor: shap_barColors_apex[index % shap_barColors_apex.length]
+                });
+            });
+
+        var shap_options_apex = {
+            chart: {
+                type: 'bar',
+                height: 650
+            },
+            title: {
+                text: 'SHapley Additive exPlanation',
+                align: 'center'
+            },
+            plotOptions: {
+                bar: {
+                    horizontal: true,
+                    dataLabels: {
+                        position: 'top',
+                    },
+                }
+            },
+            dataLabels: {
+                enabled: true,
+                formatter: function (val) {
+                    return val.toFixed(2);
+                },
+                style: {
+                    fontSize: '11px',
+                    colors: ["#304758"]
+                }
+            },
+            series: [{
+                name: 'mean(|SHAP value|)',
+                data: shap_dataSeries_apex
+            }],
+            xaxis: {
+                categories: shap_categories_apex,
+                title: {
+                    text: 'mean(|SHAP value|)'
+                }
+            },
+            yaxis: {
+                title: {
+                    text: 'Features'
+                }
+            },
+            tooltip: {
+                y: {
+                    formatter: function (val) {
+                        return val.toFixed(2);
+                    }
+                }
+            },
+            fill: {
+                colors: shap_barColors_apex
+            }
+        };
+
+        var shap_chart_apex = new ApexCharts(document.querySelector("#shapValuesBarChartRace-apexchart"), shap_options_apex);
+        shap_chart_apex.render();
+    })
+    .catch(error => console.error('Error fetching data:', error));
+</script>
+
+
+
+<!--                Shap Chart Script using HighChart-->
+    <script>
+    fetch("{{ link }}")
+        .then(response => response.json())
+        .then(data => {
+
+            const shap_categories_high = [];
+            const shap_dataSeries_high = [];
+
+            Object.entries(data)
+                .sort((a, b) => b[1] - a[1])
+                .forEach(([key, value], index) => {
+                    shap_categories_high.push(key);
+                    shap_dataSeries_high.push({
+                    y: value,
+                    color: Highcharts.getOptions().colors[index % Highcharts.getOptions().colors.length]
+                });
+                });
+
+            Highcharts.chart('shapValuesBarChartRace-highchart', {
+                chart: {
+                    type: 'bar'
+                },
+                title: {
+                    text: 'SHapley Additive exPlanation'
+                },
+                xAxis: {
+                    categories: shap_categories_high,
+                    title: {
+                        text: 'Features'
+                    }
+                },
+                yAxis: {
+                    min: 0,
+                    title: {
+                        text: ''
+                    }
+                },
+                tooltip: {
+                    valueDecimals: 2
+                },
+                credits: {
+                  enabled: false
+                },
+                plotOptions: {
+                    bar: {
+                        dataLabels: {
+                            enabled: true
+                        },
+                    }
+                },
+                series: [{
+                    name: 'mean(|SHAP value|)',
+                    data: shap_dataSeries_high,
+                    states: {
+                        hover: {
+                            brightness: 0.2
+                            // color: '#FF8C00',
+                            // borderColor: 'gray'
+                        }
+                    }
+                }]
+            });
+        })
+        .catch(error => console.error('Error fetching data:', error));
+</script>
+        {% elif artifact == "confusion matrix.txt" %}
+                <div id="confusionMatrixChart-apexchart"  style="text-align: center; margin-left: 250px; margin-top: 50px; margin-bottom: 50px; display: block;"></div>
+                <div id="confusionMatrixChart-highchart"  style="text-align: center; margin-left: 250px; margin-top: 50px; margin-bottom: 50px; display: none;">
+                </div>
+<script>
+fetch("{{ link }}")
+  .then(response => response.text())
+  .then(textData => {
+    const confusion_matrix_apex = textData.split("\n").map(row => row.trim().split("\t").map(Number));
+
+    const confusion_predictedLabels_apex = Array.from({length: confusion_matrix_apex[0].length}, (_, i) => `Predicted Label ${i}`);
+    const confusion_trueLabels_apex = Array.from({length: confusion_matrix_apex.length}, (_, i) => `True Label ${i}`);
+
+    // Prepare data for ApexCharts
+    let confusion_seriesData_apex = confusion_matrix_apex.map((row, i) => {
+      return {
+        name: confusion_trueLabels_apex[i],
+        data: row.map((value, j) => {
+          return {
+            x: confusion_predictedLabels_apex[j],
+            y: value
+          };
+        })
+      };
+    });
+
+    var confusion_options_apex = {
+      series: confusion_seriesData_apex,
+      chart: {
+        height: 550,
+          width:600,
+        type: 'heatmap'
+      },
+      plotOptions: {
+        heatmap: {
+          shadeIntensity: 0.5,
+          colorScale: {
+            ranges: [{
+                from: 0,
+                to: 10,
+                name: 'low',
+                color: '#00A100'
+            },
+            {
+                from: 10,
+                to: 20,
+                name: 'medium',
+                color: '#128FD9'
+            },
+            {
+                from: 20,
+                to: 30,
+                name: 'high',
+                color: '#FFB200'
+            },
+            {
+                from: 30,
+                name: 'extreme',
+                color: '#FF0000'
+            }]
+          }
+        }
+      },
+      dataLabels: {
+        enabled: true,
+        style: {
+          colors: ['#000'],
+            fontSize: '18px'
+        }
+      },
+        tooltip: {
+    custom: function({ series, seriesIndex, dataPointIndex, w }) {
+      return (
+        '<div class="arrow_box">' +
+        "<span>" +
+        `True Label ${seriesIndex} vs Predicted Label ${dataPointIndex} : ` +
+        series[seriesIndex][dataPointIndex] +
+        "</span>" +
+        "</div>"
+      );
+    }
+  },
+      xaxis: {
+        type: 'category',
+        categories: confusion_predictedLabels_apex
+      },
+      yaxis: {
+          type: 'category',
+          categories: confusion_trueLabels_apex,
+        reversed: true,
+        labels: {
+          formatter: function(val) {
+            return confusion_trueLabels_apex[val];
+          }
+        }
+      },
+      title: {
+        text: 'Confusion Matrix',
+          align: 'center'
+      },
+      grid: {
+        padding: {
+          right: 20
+        }
+      }
+    };
+
+    var confusion_chart_apex = new ApexCharts(document.querySelector("#confusionMatrixChart-apexchart"), confusion_options_apex);
+    confusion_chart_apex.render();
+  })
+  .catch(error => console.error('Error fetching data:', error));
+</script>
+
+<!--HighChart script for the confusion matrix-->
+<script>
+
+    fetch("{{ link }}")
+        .then(response => response.text())
+        .then(textData => {
+            const confusion_matrix_high = textData.split("\n").map(row => row.trim().split("\t").map(Number));
+
+
+            const predictedLabels = Array.from({length: confusion_matrix_high[0].length}, (_, i) => `Predicted Label ${i}`);
+            const trueLabels = Array.from({length: confusion_matrix_high.length}, (_, i) => `True Label ${i}`);
+
+
+
+            // Prepare data for Highcharts
+            let confusion_seriesData_high = [];
+            confusion_matrix_high.forEach((row, i) => {
+                row.forEach((value, j) => {
+                    confusion_seriesData_high.push([j, i, value]);
+                });
+            });
+
+            Highcharts.chart('confusionMatrixChart-highchart', {
+                chart: {
+                    height: 550,
+                    width:600,
+                    type: 'heatmap',
+                    marginTop: 40,
+                    marginBottom: 100,
+                    plotBorderWidth: 1,
+                },
+                title: {
+                    text: 'Confusion Matrix'
+                },
+                xAxis: {
+                    categories: predictedLabels,
+                    title: null
+                },
+                yAxis: {
+                    categories: trueLabels,
+                    title: null,
+                    reversed: true
+                },
+                colorAxis: {
+                    min: 0,
+                    minColor: '#FFFFFF',
+                    maxColor: Highcharts.getOptions().colors[0]
+                },
+                legend: {
+                    align: 'right',
+                    layout: 'vertical',
+                    margin: 0,
+                    verticalAlign: 'top',
+                    y: 25,
+                    symbolHeight: 280
+                },
+                tooltip: {
+                    formatter: function () {
+                        return `<b>${this.series.xAxis.categories[this.point.x]}</b> vs <b>${this.series.yAxis.categories[this.point.y]}</b>: <b>${this.point.value}</b>`;
+                    }
+                },
+                   credits: {
+      enabled: false
+    },
+                series: [{
+                    name: 'Confusion Matrix',
+                    borderWidth: 1,
+                    data: confusion_seriesData_high,
+                    dataLabels: {
+                        enabled: true,
+                        style: {
+                            color: '#000000',
+                            fontSize: '20px'
+                        }
+                    }
+                }]
+            });
+        })
+        .catch(error => console.error('Error fetching data:', error));
+</script>
+        {% endif %}
+        {% endfor %}
+        </li>
+</ul>
+</div>
+        <br><br>
+<div class="container">
+
+                <h2 class="mb-4">Human Expert Observation</h2>
+
+        <table class="custom-table">
+            <tr>
+                <td>
+<!--                    <h3>Observation Notes</h3>-->
+                    <form class="cart-form" action="/run_details?run_id={{ run_info.run_id }}" method="post">
+                         <label class="ui-form-input-container">
+                            <textarea class="ui-form-input" name="notes">{{run_notes}}</textarea>
+                            <span class="form-input-label">{{session['username']}} Notes</span>
+                          </label>
+                        <br><br>
+                        <input type="submit" value="Save Notes" style="margin-left: 480px;">
+                    </form>
+                </td>
+            </tr>
+        </table>
+
+
+        <table class="custom-table">
+    <tbody>
+        <tr>
+            <!-- Previous button column -->
+            <td>
+                <div class="buttons">
+                    <button class="fill up{% if not prev_run_id %}disabled{% endif %}"
+                       onclick="{% if prev_run_id %}navigateTo('{{ url_for('run_details', run_id=prev_run_id) }}'){% else %}showMessage('You are on the first Run of the Experiment.'){% endif %}">
+                   <a><i class="fas fa-arrow-left"></i> Previous</a>
+                    </button>
+                </div>
+
+
+            </td>
+
+            <!-- Add to Comparison button column -->
+            {% if run_info.status == "FINISHED"%}
+            <td>
+                <div style="margin-left: 100px">
+
+                <form class="cart-form" method="post" action="{{ url_for('add_to_comparison') }}">
+                    <input type="hidden" name="run_id" value="{{ run_info.run_id }}">
+                    <input type="hidden" name="run_name" value="{{ run_info.run_name }}">
+                    <input type="hidden" name="experiment_id" value="{{ run_info.experiment_id }}">
+                    <input type="submit" value="Add to Comparison">
+                </form>
+                </div>
+            </td>
+            {% endif %}
+            <td>
+                <div class="buttons">
+                    <a href="{{ url_for('view_comparison') }}"><button class="fill up"> <i class="fas fa-list"></i> View Comparison List</button></a>
+
+                </div>
+            </td>
+
+            <!-- Next button column -->
+            <td>
+                <div class="buttons">
+
+                    <button class="fill up{% if not next_run_id %}disabled{% endif %}"
+                            onclick="{% if next_run_id %}navigateTo('{{ url_for('run_details', run_id=next_run_id) }}'){% else %}showMessage('You are on the last Run of the Experiment.'){% endif %}">
+                        <a> Next  <i class="fas fa-arrow-right"></i> </a>
+                    </button>
+
+                </div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+</div>
+
+    </div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    let run_metrics_apex = {{ run_metrics|tojson|safe }};
+
+    let barColors_apex = ['#007bff', '#6610f2', '#6f42c1', '#e83e8c', '#fd7e14', '#ffc107', '#28a745', '#20c997', '#17a2b8', '#dc3545'];
+
+    // Prepare the series data for ApexCharts
+    let seriesData_apex = Object.keys(run_metrics_apex).map((key, index) => {
+      return {
+        x: key,
+        y: run_metrics_apex[key],
+        fillColor: barColors_apex[index % barColors_apex.length]
+      };
+    });
+
+    var options_apex = {
+      series: [{
+        name: 'Performance Score',
+        data: seriesData_apex
+      }],
+      chart: {
+      height: 400,
+      type: 'bar',
+    },
+      title: {
+        text: 'Performance Metrics',
+        align: 'center'
+      },
+      plotOptions: {
+        bar: {
+          borderRadius: 4,
+          horizontal: false,
+          columnWidth: '45%',
+        }
+      },
+      dataLabels: {
+        enabled: true,
+        formatter: function (val) {
+          return val.toFixed(3);
+        },
+        style: {
+          colors: ['black'],
+          fontWeight: 'bold'
+        }
+      },
+      stroke: {
+        show: true,
+        width: 2,
+        colors: ['transparent']
+      },
+      xaxis: {
+        categories: Object.keys(run_metrics_apex),
+        crosshair: {
+          enabled: true
+        }
+      },
+      yaxis: {
+        title: {
+          text: 'Value'
+        },
+        min: 0,
+        max: Math.ceil(Math.max(...Object.values(run_metrics_apex))),
+        labels: {
+          formatter: function (val) {
+            return val.toFixed(2);
+          }
+        }
+      },
+      tooltip: {
+        y: {
+          formatter: function (val) {
+            return val.toFixed(3);
+          }
+        }
+      },
+      fill: {
+        colors: barColors_apex,
+        opacity: 1
+      },
+      states: {
+        hover: {
+          filter: {
+            type: 'darken',
+            value: 0.75
+          }
+        }
+      },
+      theme: {
+        mode: 'light',
+        palette: 'palette1',
+        monochrome: {
+          enabled: false,
+          shadeTo: 'light',
+          shadeIntensity: 0.65
+        },
+      },
+    };
+
+    var chart_apex = new ApexCharts(document.querySelector("#performance_container-apexchart"), options_apex);
+    chart_apex.render();
+  });
+</script>
+<!--HighChart script for Performance Metrics-->
+<script>
+            document.addEventListener('DOMContentLoaded', function () {
+            let run_metrics = {{ run_metrics|tojson|safe }};
+Highcharts.chart('performance_container-highchart', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: 'Performance Metrics'
+    },
+    xAxis: {
+        categories: Object.keys(run_metrics),
+        crosshair: true
+    },
+    yAxis: {
+        min: 0,
+        max: Math.ceil(Math.max(...Object.values(run_metrics))),
+        title: {
+            text: 'Value'
+        },
+        labels: {
+            formatter: function () {
+                return Math.abs(this.value);
+            }
+        }
+    },
+    tooltip: {
+        formatter: function () {
+            return `${this.key}: ${this.y.toFixed(3)}`;
+        }
+    },
+    credits: {
+      enabled: false
+    },
+    plotOptions: {
+        column: {
+            pointPadding: 0.2,
+            borderWidth: 0,
+            states: {
+                    hover: {
+                        brightness: 0.2
+                    }
+                }
+        },
+        series: {
+            dataLabels: {
+                enabled: true,
+                formatter: function () {
+                    return this.y.toFixed(3);
+                },
+                inside: false,
+                style: {
+                    fontWeight: 'Bold',
+                },
+
+            }
+        }
+    },
+    series: [{
+        name: 'Performance Score',
+        data: Object.entries(run_metrics).map(([key, value], index) => ({
+            name: key,
+            y: value,
+            color: Highcharts.getOptions().colors[index]
+        })),
+        states: {
+            hover: {
+                borderColor: 'gray'
+            }
+        }
+    }]
+});
+});
+</script>
+<script>
+var autoExpand = function (field) {
+  field.style.height = "inherit";
+  var computed = window.getComputedStyle(field);
+  var height =
+    parseInt(computed.getPropertyValue("border-top-width"), 10) +
+    parseInt(computed.getPropertyValue("padding-top"), 10) +
+    field.scrollHeight +
+    parseInt(computed.getPropertyValue("padding-bottom"), 10) +
+    parseInt(computed.getPropertyValue("border-bottom-width"), 10);
+
+  field.style.height = height + "px";
+};
+
+document.addEventListener(
+  "input",
+  function (event) {
+    if (event.target.tagName.toLowerCase() !== "textarea") return;
+    autoExpand(event.target);
+  },
+  false
+);
+function toggleDisplay() {
+        var header = document.querySelector('.dropdown-header');
+        var table = document.getElementById("paramsTable");
+        if (table.style.display === "none") {
+            table.style.display = "block";
+            header.classList.add("active");
+        } else {
+            table.style.display = "none";
+            header.classList.remove("active");
+        }
+    }
+</script>
+            <script>
+document.addEventListener('DOMContentLoaded', function () {
+    const chartToggle = document.getElementById('DvToggle');
+    const apexchartPerformanceContainer = document.getElementById('performance_container-apexchart');
+    const highchartPerformanceContainer = document.getElementById('performance_container-highchart');
+    const apexchartShapContainer = document.getElementById('shapValuesBarChartRace-apexchart');
+    const highchartShapContainer = document.getElementById('shapValuesBarChartRace-highchart');
+    const apexchartConfusionHeatmapContainer = document.getElementById('confusionMatrixChart-apexchart');
+    const highchartConfusionHeatmapContainer = document.getElementById('confusionMatrixChart-highchart');
+
+    // Toggle switch listener
+    chartToggle.addEventListener('change', function() {
+        if(this.checked) {
+            // Performance Chart
+            apexchartPerformanceContainer.style.display = 'none';
+            highchartPerformanceContainer.style.display = 'block';
+            // SHap chart
+            apexchartShapContainer.style.display = 'none';
+            highchartShapContainer.style.display = 'block';
+            // Model Confusion Matrix Heatmap
+            apexchartConfusionHeatmapContainer.style.display = 'none';
+            highchartConfusionHeatmapContainer.style.display = 'block';
+        } else {
+            // Performance Chart
+            highchartPerformanceContainer.style.display = 'none';
+            apexchartPerformanceContainer.style.display = 'block';
+            // SHap Chart
+            highchartShapContainer.style.display = 'none';
+            apexchartShapContainer.style.display = 'block';
+            // Model Confusion Matrix Heatmap
+            highchartConfusionHeatmapContainer.style.display = 'none';
+            apexchartConfusionHeatmapContainer.style.display = 'block';
+            // window.location.reload();
+
+        }
+
+    });
+});
+</script>
+</body>
+</html>

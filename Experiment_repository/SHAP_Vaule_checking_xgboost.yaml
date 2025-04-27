@@ -1,0 +1,86 @@
+## Model configuration for Wine dataset classification
+experiment_name: SHAP Value CHECKING
+
+
+data:        # fill out the below required fields
+  data_set:   # sklearn.datasets {leave blank if using Tool UI}
+  data_file: Experiment_repository/iris_data.csv    #update with your_fine_name
+  target:  target         #target feature name
+  delimiter: ','  #[; ,  ',']
+  split-method: train_test_split # KFold, train_test_split
+  n_splits:                      # if using kfold in split-method provide the splits number else leave blank if using train_test_split
+  additional_parameters:       #under additional parameter add all the user required parameter for train_test_split
+    train_size:             # provide number as per requirement
+    test_size: 0.2          # provide number as per requirement
+    random_state: 42        # provide number as per requirement
+    stratify:               # can be Y or blank
+    shuffle:                #default value is 'True' and If you set shuffle = False, then you must set stratify = None.
+
+models:
+  model1: #provide details for the model 1
+    module: xgboost # machine learning algorithms module to import from
+    name: XGBClassifier # machine learning algorithms
+    description: checking shap value #Text what to expect with the trained model
+    params: #provide required parameters for the model 1
+#      ccp_alpha: 0.0
+#      class_weight: balanced
+#      criterion: gini
+#      splitter: best
+       max_depth: 6
+#      max_features: sqrt
+#      min_samples_leaf: 1
+#      min_samples_split: 5
+    evaluation:
+      accuracy_score: sklearn.metrics
+      confusion_matrix: sklearn.metrics
+      classification_report: sklearn.metrics
+      cohen_kappa_score: sklearn.metrics
+      precision_score: sklearn.metrics
+      recall_score: sklearn.metrics
+      f1_score: sklearn.metrics
+
+      # fill up the models details as per the above provided sample if want to include more than 2 models
+  model2:
+    module: sklearn.ensemble
+    name: RandomForestClassifier
+    description: RandomForestClassifier algorithms with criterion - gini
+    params:
+      criterion: 'gini'
+    evaluation:
+      accuracy_score: sklearn.metrics
+      confusion_matrix: sklearn.metrics
+      classification_report: sklearn.metrics
+      cohen_kappa_score: sklearn.metrics
+      precision_score: sklearn.metrics
+      recall_score: sklearn.metrics
+      f1_score: sklearn.metrics
+
+  model3:
+    module: sklearn.tree
+    name: DecisionTreeClassifier
+    description: DecisionTreeClassifier algorithms with criterion - gini
+    params:
+      criterion: 'gini'
+    evaluation:
+      accuracy_score: sklearn.metrics
+      confusion_matrix: sklearn.metrics
+      classification_report: sklearn.metrics
+      cohen_kappa_score: sklearn.metrics
+      precision_score: sklearn.metrics
+      recall_score: sklearn.metrics
+      f1_score: sklearn.metrics
+
+  model4:
+    module: sklearn.linear_model
+    name: LogisticRegression
+    description: LogisticRegression algorithms with param solver 'lbfgs'
+    params:
+      solver: 'lbfgs'
+    evaluation:
+      accuracy_score: sklearn.metrics
+      confusion_matrix: sklearn.metrics
+      classification_report: sklearn.metrics
+      cohen_kappa_score: sklearn.metrics
+      precision_score: sklearn.metrics
+      recall_score: sklearn.metrics
+      f1_score: sklearn.metrics

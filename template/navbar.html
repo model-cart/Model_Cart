@@ -1,0 +1,163 @@
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+</head>
+<header class="site__header">
+
+  <div class="grid">
+
+
+    <div class="site__logo">
+
+
+      <a href="/"><svg xmlns="http://www.w3.org/2000/svg" width="64" height="34" viewBox="9 310.9 412 220">
+          <path fill="#fff" d="M29 430.9h-20v-20h20v20zm392-20h-20v20h20v-20zm-30.2-15h-20v50h20v-50zm-331.6 5h-20v40h20v-40zm30.1-10h-20v60h20v-60zm30.2-20h-20v100h20v-100zm30.1 20h-20v60h20v-60zm30.2-40h-20v140h20v-140zm30.1-40h-20v220h20v-220zm30.2 40h-20v140h20v-140zm30.1 30h-20v80h20v-80zm30.2 10h-20v60h20v-60zm30.1 10h-20v40h20v-40zm30.2-20h-20v80h20v-80z" />
+        </svg></a>
+
+    </div>
+
+    <nav class="navigation navigation--inline navigation--main">
+      <ul>
+
+        <li><a href="https://127.0.0.1:5000/experiment"><i class="fas fa-flask"></i> Experiments</a></li>
+          <li><a href="https://127.0.0.1:5000/comparison"><i class="fas fa-balance-scale"></i> Comparisons</a></li>
+        <li><a href="https://127.0.0.1:5000/cart"><i class="fas fa-shopping-cart"></i> Cart</a></li>
+        <li><a href="https://127.0.0.1:5000/about"><i class="fas fa-info-circle"></i> About</a></li>
+
+
+        {% if session['logged_in'] %}
+    <!-- If the user is logged in, show the Logout and MLflow Dashboard button -->
+        <li class="nav-item">
+
+<!--            <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>-->
+
+        </li>
+          <li><a href="https://127.0.0.1:5000/profile" class="button button--primary button--rounded">{{session['username']}}</a></li>
+<!--        <li><a href="https://127.0.0.1:5000/cart"><img class="c_img" src="static/cart.png" alt="Cart"></a></li>-->
+
+        {% else %}
+    <!-- If the user is not logged in, show the Login button -->
+        <li class="nav-item">
+            <a class="button button--primary button--rounded" href="{{ url_for('login') }}">Login</a>
+        </li>
+        {% endif %}
+
+
+      </ul>
+    </nav>
+
+  </div>
+
+</header>
+
+
+<style>
+
+.site__header {
+  left: 0;
+  padding: 1rem 0;
+  position: fixed;
+  top: 0;
+  transform: translateZ(0);
+  width: 100%;
+  z-index: 1;
+  margin-bottom: 1rem;
+  background-color: black;
+}
+.site__logo {
+  float: left;
+}
+.button {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  color: #fff;
+}
+.button--primary {
+  background-color: #ce3d90;
+}
+
+.button--rounded {
+  border-radius: 999px;
+}
+.button--scroll {
+  bottom: 2rem;
+  left: 50%;
+  position: absolute;
+  transform: translateX(-50%);
+}
+
+.grid {
+  margin: 0 auto;
+  max-width: 74rem;
+  width: 90%;
+}
+.grid:before, .grid:after {
+  content: " ";
+  display: table;
+}
+.grid:after {
+  clear: both;
+}
+
+h1 {
+  font-size: 3rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem;
+  /*text-transform: uppercase;*/
+
+}
+
+svg {
+  height: auto;
+  max-width: 100%;
+  vertical-align: middle;
+}
+
+a {
+  color: #4CAF50;
+  text-decoration: none;
+}
+       a:hover {
+            color: #45a049;
+            text-decoration: underline;
+        }
+
+.navigation ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.navigation a {
+  display: block;
+}
+.navigation--inline > ul:before, .navigation--inline > ul:after {
+  content: " ";
+  display: table;
+}
+.navigation--inline > ul:after {
+  clear: both;
+}
+.navigation--inline > ul > li {
+  float: left;
+}
+.navigation--main {
+  float: right;
+  text-transform: uppercase;
+}
+.navigation--main > ul {
+  margin: 0 -9rem;
+  font-weight: 900;
+}
+.navigation--main > ul > li {
+  margin: 0 2rem;
+}
+.navigation--main a {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+.c_img{
+  height: 20px;
+  vertical-align: middle;
+}
+
+</style>

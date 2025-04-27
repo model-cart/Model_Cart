@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{session['username']}} - Archived Comparisons</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            color: #444;
+            text-align: left;
+            padding: 10px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:hover {
+            background-color: #ddd;
+        }
+        .cart-form input[type="submit"] {
+            display: inline-block;
+            font-size: 16px;
+            padding: 10px 30px;
+            color: #fff;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.5s ease;
+            margin: 20px 0;
+        }
+        .cart-form input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .site__spacer{
+            height: 72px;
+        }
+        .view-btn {
+            padding: 5px 10px;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .view-btn:hover {
+            background-color: #45a049;
+        }
+
+        .flash-messages {
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .alert {
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            position: relative;
+        }
+
+        .alert-content {
+            display: block;
+        }
+
+        .alert-closebtn {
+            position: absolute;
+            top: 2px;
+            right: 10px;
+            font-size: 24px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .alert-closebtn:hover {
+            color: black;
+        }
+
+
+        .alert-success {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .alert-warning {
+            background-color: #ff9800;
+            color: white;
+        }
+
+        .alert-danger {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .alert-info {
+            background-color: #2196F3;
+            color: white;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.1/css/all.min.css">
+
+</head>
+{% include 'navbar.html' %}
+<body>
+    <div class="site__spacer"></div>
+    <div class="container">
+        <div style="background-color: #eef2f7; padding: 15px; border-radius: 6px; box-shadow: 0 3px 5px rgba(0,0,0,0.1); margin-bottom: 20px;">
+            <h1 class="mb-4" style="font-family: 'Arial', sans-serif; font-weight: bold; color: #333; display: flex; align-items: center;">
+                <i class="fas fa-archive" style="margin-right: 10px; font-size: 24px;"></i> Archived Comparisons
+            </h1>
+        </div>
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        <div class="flash-messages">
+                            {% for category, message in messages %}
+                                <div class="alert alert-{{ category }}">
+                                    <span class="alert-content">{{ message }}</span>
+                                    <span class="alert-closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+
+
+
+        <div>
+             {% for comparison_time, comparisons in comparison_saved.items() %}
+                <h2>Comparison Saved at: {{ comparison_time }}</h2>
+                    <table>
+                        <tr>
+                            <th>ID</th>
+                            <th>Timestamp</th>
+                            <th>Comparison Notes</th>
+                            <th>Compared Run IDs</th>
+                            <th>Action</th>
+                        </tr>
+                        {% for comp in comparisons %}
+                        <tr>
+                            <td>{{ comp.id }}</td>
+                            <td>{{ comp.timestamp }}</td>
+                            <td>{{ comp.notes }}</td>
+                            <td>{{ ', '.join(comp.runs) }}</td>
+                            <td>
+                                <!-- View Comparison Button -->
+                                <a href="{{ url_for('compare_runs', selected_run_ids=comp.runs, comparison_id = comp.id) }}" class="view-btn">View</a>
+                                <br><br>
+                                <form method="post" action="{{ url_for('delete_comparison', comp_id=comp.id) }}" style="display: inline;">
+                                <button type="submit" class="delete-btn">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                    {% endfor %}
+
+         </div>
+
+    </div>
+</body>
+
+</html>

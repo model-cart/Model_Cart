@@ -1,0 +1,209 @@
+{% include 'navbar.html' %}
+<head>
+    <title>Model-Cart</title>
+</head>
+<main class="site__main">
+  <div class="site__spacer"></div>
+
+
+  <section class="site__section site__section--start align text--center">
+
+
+    <div class="grid">
+            <div class="card">
+             <h1>Welcome to the Model-Cart Tool</h1>
+            </div>
+
+
+
+<!--      <a href="https://127.0.0.1:5000/experiment" class="button&#45;&#45;scroll animation animation&#45;&#45;infinite animation&#45;&#45;up-down"><svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="-275 398.7 44.2 44.2">-->
+<!--          <path fill="#45a049" d="M-275 420.8c0-12.2 9.9-22.1 22.1-22.1s22.1 9.9 22.1 22.1c0 12.2-9.9 22.1-22.1 22.1s-22.1-9.9-22.1-22.1zm42.7 0c0-11.4-9.2-20.6-20.6-20.6-11.4 0-20.6 9.2-20.6 20.6 0 11.4 9.2 20.6 20.6 20.6 11.4 0 20.6-9.3 20.6-20.6zM-260.6 418c0-.2.1-.4.2-.5.3-.3.8-.3 1.1 0l6.8 6.8 6.8-6.8c.3-.3.8-.3 1.1 0 .3.3.3.8 0 1.1l-7.3 7.3c-.3.3-.8.3-1.1 0l-7.3-7.3c-.3-.2-.3-.4-.3-.6z" />-->
+<!--        </svg></a>-->
+
+    </div>
+
+
+  </section>
+
+</main>
+
+
+<style>
+/*    @use postcss-preset-env {*/
+/*  stage: 0;*/
+/*}*/
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  color: #343a40;
+  font: 300 1rem/1.5 Lato, sans-serif;
+  margin: 0;
+  min-height: 100%;
+}
+
+.align {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+}
+.align__item--start {
+  align-self: flex-start;
+}
+.align__item--end {
+  align-self: flex-end;
+}
+
+.animation {
+  animation-duration: 2s;
+  animation-timing-function: ease-in-out;
+}
+.animation--infinite {
+  animation-iteration-count: infinite;
+}
+.animation--up-down {
+  animation-name: upDown;
+}
+
+@keyframes upDown {
+  0% {
+    transform: translateY(-15px);
+  }
+  50% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-15px);
+  }
+}
+.text--center {
+  text-align: center;
+}
+
+.site__header {
+  left: 0;
+  padding: 1rem 0;
+  position: fixed;
+  top: 0;
+  transform: translateZ(0);
+  width: 100%;
+  z-index: 1;
+}
+.site__logo {
+  float: left;
+}
+
+.site__section {
+  min-height: 95vh;
+  position: relative;
+}
+
+.site__section--start {
+  /*background: url("{{ url_for('static', filename='img_4.png') }}") center center  no-repeat;*/
+}
+
+.button {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+}
+.button--primary {
+  background-color: #ce3d90;
+}
+.button--rounded {
+  border-radius: 999px;
+}
+.button--scroll {
+  bottom: 2rem;
+  left: 50%;
+  position: absolute;
+  transform: translateX(-50%);
+}
+
+.grid {
+  margin: 0 auto;
+  max-width: 74rem;
+  width: 90%;
+}
+.grid:before, .grid:after {
+  content: " ";
+  display: table;
+}
+.grid:after {
+  clear: both;
+}
+
+h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem;
+  /*text-transform: uppercase;*/
+
+}
+
+svg {
+  height: auto;
+  max-width: 100%;
+  vertical-align: middle;
+}
+
+.navigation ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.navigation a {
+  display: block;
+}
+.navigation--inline > ul:before, .navigation--inline > ul:after {
+  content: " ";
+  display: table;
+}
+.navigation--inline > ul:after {
+  clear: both;
+}
+.navigation--inline > ul > li {
+  float: left;
+}
+.navigation--main {
+  float: right;
+  text-transform: uppercase;
+}
+.navigation--main > ul {
+  margin: 0 -9rem;
+  font-weight: 900;
+}
+.navigation--main > ul > li {
+  margin: 0 2rem;
+}
+.navigation--main a {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.site__spacer {
+    height: 72px;
+}
+.card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 70%;
+    margin: 0 auto;
+    background-color: #f3f3f3;
+    padding: 50px;
+    border-radius: 10px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+}
+
+</style>
+
+
+
+
+

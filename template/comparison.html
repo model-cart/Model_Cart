@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{session['username']}} - Comparisons</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.1);
+        }
+        h1, h2 {
+            color: #444;
+            text-align: left;
+            padding: 10px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:hover {
+            background-color: #ddd;
+        }
+        .cart-form input[type="submit"] {
+            display: inline-block;
+            font-size: 16px;
+            padding: 10px 30px;
+            color: #fff;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.5s ease;
+            margin: 20px 0;
+        }
+        .cart-form input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .site__spacer{
+            height: 72px;
+        }
+        .view-btn {
+            padding: 5px 10px;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .view-btn:hover {
+            background-color: #45a049;
+        }
+
+        .flash-messages {
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .alert {
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            position: relative;
+        }
+
+        .alert-content {
+            display: block;
+        }
+
+        .alert-closebtn {
+            position: absolute;
+            top: 2px;
+            right: 10px;
+            font-size: 24px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .alert-closebtn:hover {
+            color: black;
+        }
+
+
+        .alert-success {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        .alert-warning {
+            background-color: #ff9800;
+            color: white;
+        }
+
+        .alert-danger {
+            background-color: #f44336;
+            color: white;
+        }
+
+        .alert-info {
+            background-color: #2196F3;
+            color: white;
+        }
+    </style>
+
+</head>
+{% include 'navbar.html' %}
+<body>
+    <div class="site__spacer"></div>
+    <div class="container">
+        <div style="background-color: #eef2f7; padding: 15px; border-radius: 6px; box-shadow: 0 3px 5px rgba(0,0,0,0.1); margin-bottom: 20px;">
+            <h1 class="mb-4" style="font-family: 'Arial', sans-serif; font-weight: bold; color: #333; display: flex; align-items: center;">
+                <i class="fa-solid fa-code-compare" style="margin-right: 10px; font-size: 24px;"></i> Comparison
+            </h1>
+        </div>
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        <div class="flash-messages">
+                            {% for category, message in messages %}
+                                <div class="alert alert-{{ category }}">
+                                    <span class="alert-content">{{ message }}</span>
+                                    <span class="alert-closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+
+        <form method="post" class="cart-form">
+            {% for experiment_id, runs in comparison.items() %}
+                <h2>Experiment ID: {{ experiment_id }} <input type="radio" class="experiment-master-checkbox" data-experiment-id="{{ experiment_id }}"></h2>
+                <p>All runs under this experiment will be selected for comparison if you check the above box.</p>
+                <table>
+                    <tr>
+                        <th>Run ID</th>
+                        <th>Run Name</th>
+                    </tr>
+                    {% for run in runs %}
+                    <tr>
+                        <!-- Hidden checkbox for each run -->
+                        <td style="display: none;"><input type="checkbox" class="hidden-checkbox" data-experiment-id="{{ experiment_id }}" name="selected_runs[]" value="{{ experiment_id }}-{{ run.run_id }}"></td>
+                        <td><a href="/run_details?run_id={{ run.run_id }}">{{ run.run_id }}</a></td>
+                        <td><a href="/run_details?run_id={{ run.run_id }}">{{ run.run_name }}</a></td>
+                    </tr>
+                    {% endfor %}
+                </table>
+                {% endfor %}
+
+
+<!--            {% for experiment_id, runs in comparison.items() %}-->
+<!--            <h2>Experiment ID: {{ experiment_id }}</h2>-->
+<!--            <table>-->
+<!--                <tr>-->
+<!--                    <th>Select</th>-->
+<!--                    <th>Run ID</th>-->
+<!--                    <th>Run Name</th>-->
+<!--                </tr>-->
+<!--                {% for run in runs %}-->
+<!--                <tr>-->
+<!--                    <td>-->
+<!--                        <input type="checkbox" name="selected_runs[]" value="{{ experiment_id }}-{{ run.run_id }}">-->
+<!--                    </td>-->
+<!--                    <td><a href="/run_details?run_id={{ run.run_id }}">{{ run.run_id }}</a></td>-->
+<!--                    <td><a href="/run_details?run_id={{ run.run_id }}">{{ run.run_name }}</a></td>-->
+<!--                </tr>-->
+<!--                {% endfor %}-->
+
+<!--            </table>-->
+<!--            {% endfor %}-->
+            <!-- Add to cart and Remove from comparison buttons -->
+            <input type="submit" id="compareButton" formaction="{{ url_for('compare_runs') }}" value="Compare" disabled>
+<!--            <input type="submit" formaction="{{ url_for('add_to_cart') }}" value="Add selected to cart">-->
+            <input type="submit" formaction="{{ url_for('remove_from_comparison') }}" value="Remove selected from comparison">
+        </form>
+        <form method="post" action="{{ url_for('clear_comparison') }}" class="cart-form">
+            <input type="submit" value="Clear comparison list">
+        </form>
+        <form action="{{ url_for('view_saved_comparison') }}" class="cart-form">
+            <input type="submit" value="View Archived Comparisons">
+        </form>
+
+
+
+
+    </div>
+
+<!--<script>-->
+<!--    let checkboxes = document.querySelectorAll('input[type="checkbox"]');-->
+<!--    checkboxes.forEach(checkbox => {-->
+<!--        checkbox.addEventListener('change', function() {-->
+<!--            let selected = {};-->
+<!--            checkboxes.forEach(c => {-->
+<!--                if (c.checked) {-->
+<!--                    let [exp_id, run_id] = c.value.split("-");-->
+<!--                    if (!selected[exp_id]) selected[exp_id] = [];-->
+<!--                    selected[exp_id].push(run_id);-->
+<!--                }-->
+<!--            });-->
+
+<!--            let valid = false;-->
+<!--            for (let exp_id in selected) {-->
+<!--                if (selected[exp_id].length >= 2) valid = true;-->
+<!--            }-->
+
+<!--            document.getElementById('compareButton').disabled = !valid || Object.keys(selected).length !== 1;-->
+<!--        });-->
+<!--    });-->
+
+<!--</script>-->
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    let masterCheckboxes = document.querySelectorAll('.experiment-master-checkbox');
+    let compareButton = document.getElementById('compareButton');
+
+    masterCheckboxes.forEach(masterCheckbox => {
+        masterCheckbox.addEventListener('change', function() {
+            let experimentId = masterCheckbox.dataset.experimentId;
+            let runCheckboxes = document.querySelectorAll('.hidden-checkbox[data-experiment-id="' + experimentId + '"]');
+
+            // Update the run checkboxes based on the master checkbox state
+            runCheckboxes.forEach(runCheckbox => {
+                runCheckbox.checked = masterCheckbox.checked;
+            });
+
+            // Uncheck other master checkboxes AND their associated run checkboxes
+            masterCheckboxes.forEach(mc => {
+                if (mc !== masterCheckbox) {
+                    mc.checked = false;
+                    let otherExperimentId = mc.dataset.experimentId;
+                    let otherRunCheckboxes = document.querySelectorAll('.hidden-checkbox[data-experiment-id="' + otherExperimentId + '"]');
+                    otherRunCheckboxes.forEach(otherRunCheckbox => {
+                        otherRunCheckbox.checked = false;  // Uncheck the associated run checkboxes
+                    });
+                }
+            });
+
+            // Check the conditions for enabling/disabling the compare button
+            let checkedExperiments = Array.from(masterCheckboxes).filter(mc => mc.checked);
+
+            if (checkedExperiments.length === 1) {
+                if (runCheckboxes.length >= 2) {
+                    compareButton.disabled = false;
+                    return;
+                }
+            }
+
+            compareButton.disabled = true;
+        });
+    });
+
+    // Initial state
+    compareButton.disabled = true;
+});
+
+</script>
+</body>
+
+</html>

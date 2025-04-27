@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{session['username']}} - Experiments</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #444;
+            text-align: left;
+            padding: 10px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        tr:hover {
+            background-color: #ddd;
+        }
+        a {
+            color: #4CAF50;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        a:hover {
+            color: #45a049;
+            text-decoration: underline;
+        }
+                .new-experiment-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            margin: 20px 0;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+        .new-experiment-btn:hover {
+            background-color: rgb(225, 232, 234);
+        }
+        .site__spacer{
+            height: 72px;
+        }
+        ul.flashes {
+    list-style-type: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+ul.flashes li {
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+ul.flashes li.warning {
+    background-color: #ffcccb;
+    color: #a00;
+    border: 1px solid #d40000;
+}
+
+ul.flashes li.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+.check-thread-btn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            margin: 20px 0;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.3s ease;
+        }
+        .check-thread-btn:hover {
+            background-color: rgb(225, 232, 234);
+        }
+    </style>
+
+
+</head>
+{% include 'navbar.html' %}
+<body>
+    <div class="site__spacer"></div> <!-- Add a spacer div to push the content below the fixed header -->
+    <div class="container">
+        <div style="background-color: #f7f7f7; padding: 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+            <h1 style="font-family: 'Arial', sans-serif; font-weight: bold; color: #333; display: flex; align-items: center;">
+                <i class="fas fa-flask" style="margin-right: 10px; font-size: 24px;"></i> Experiments
+            </h1>
+        </div>
+                            {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                    <ul class=flashes>
+                        {% for category, message in messages %}
+                        <li class="{{ category }}">{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                    {% endwith %}
+                    <a href="/new_experiment" class="new-experiment-btn"><i class="fas fa-plus"></i> New Experiment</a>
+                    <a href="/check_thread" class="check-thread-btn"><i class="fas fa-tasks"></i> Check Thread Status</a>
+
+        <table>
+            <tr>
+                <th>Experiment ID</th>
+                <th>Name</th>
+<!--                <th>Experiment Report</th>-->
+                <th>Runs</th>
+            </tr>
+            {% for experiment_id in experiments %}
+            <tr>
+                <td>{{ experiment_id }}</td>
+                <td>{{ experiments[experiment_id] }}</td>
+<!--                <td><a href="/runs/{{ experiment_id }}">View Report</a></td>-->
+                <td><a href="/{{ experiment_id}}">View Runs</a></td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</body>
+</html>
+
+

@@ -1,0 +1,221 @@
+<header class="site__header">
+
+  <div class="grid">
+
+
+    <div class="site__logo">
+
+      <a href="/"><img class="logo_img" src="static/tool_logo.png" alt="Model-Cart">Model-Cart</a>
+
+    </div>
+
+    <nav class="navigation navigation--inline navigation--main">
+      <ul>
+
+        <li><a href="https://127.0.0.1:5000/experiment">Experiments</a></li>
+        <li><a href="https://127.0.0.1:5000/comparison">Comparisons</a></li>
+        <li><a href="https://127.0.0.1:5000/cart">Cart<img class="c_img" src="static/cart.png" alt="Cart"></a></li>
+        <li><a href="https://127.0.0.1:5000/about">About</a></li>
+
+
+        {% if session['logged_in'] %}
+    <!-- If the user is logged in, show the Logout and MLflow Dashboard button -->
+<!--        <li class="nav-item">-->
+
+<!--            <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>-->
+
+<!--        </li>-->
+<!--          <li><a href="https://127.0.0.1:5000/profile" class="button button&#45;&#45;primary button&#45;&#45;rounded">{{session['username']}}</a></li>-->
+          <li id="usersname"><a href="https://127.0.0.1:5000/profile">{{session['username']}}</a>
+            <!-- First Tier Drop Down -->
+            <ul id="dropdown">
+                <li><a href="{{ url_for('logout') }}">Log Out</a></li>
+            </ul>
+            </li>
+
+
+        {% else %}
+    <!-- If the user is not logged in, show the Login button -->
+        <li class="nav-item">
+            <a class="button button--primary button--rounded" href="{{ url_for('login') }}">Login</a>
+        </li>
+        {% endif %}
+
+
+      </ul>
+    </nav>
+
+  </div>
+
+</header>
+
+
+<style>
+
+.site__header {
+  left: 0;
+  padding: 1rem 0;
+  position: fixed;
+  top: 0;
+  transform: translateZ(0);
+  width: 100%;
+  z-index: 1;
+  margin-bottom: 1rem;
+  background-color: black;
+}
+.site__logo {
+  float: left;
+}
+.logo_img{
+    height: 50px;
+    max-width: 100%;
+    vertical-align: middle;
+}
+.button {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  color: #fff;
+}
+.button--primary {
+  background-color: #ce3d90;
+}
+
+.button--rounded {
+  border-radius: 999px;
+}
+.button--scroll {
+  bottom: 2rem;
+  left: 50%;
+  position: absolute;
+  transform: translateX(-50%);
+}
+
+.grid {
+  margin: 0 auto;
+  max-width: 74rem;
+  width: 90%;
+}
+.grid:before, .grid:after {
+  content: " ";
+  display: table;
+}
+.grid:after {
+  clear: both;
+}
+
+h1 {
+  font-size: 3rem;
+  font-weight: 600;
+  margin: 0 0 0.5rem;
+  /*text-transform: uppercase;*/
+
+}
+
+svg {
+  height: auto;
+  max-width: 100%;
+  vertical-align: middle;
+}
+
+a {
+  color: #4CAF4F;
+  text-decoration: none;
+}
+
+.navigation ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.navigation a {
+  display: block;
+}
+.navigation--inline > ul:before, .navigation--inline > ul:after {
+  content: " ";
+  display: table;
+}
+.navigation--inline > ul:after {
+  clear: both;
+}
+.navigation--inline > ul > li {
+  float: left;
+}
+.navigation--main {
+  float: right;
+  text-transform: uppercase;
+}
+.navigation--main > ul {
+  margin: 0 -9rem;
+  font-weight: 900;
+}
+.navigation--main > ul > li {
+  margin: 0 2rem;
+}
+.navigation--main a {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+.c_img{
+  height: 20px;
+}
+
+
+/* Dropdown Styles */
+#usersname ul {
+    display: none;
+    position: absolute;
+    top: 100%; /* position dropdown directly below the main menu item */
+    left: 0; /* align dropdown to the left of the main menu item */
+    background-color: #000; /* background color for dropdown */
+    border-radius: 5px; /* rounded corners for dropdown */
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); /* shadow effect */
+    margin-top: 0; /* remove any margin at the top */
+}
+
+#usersname:hover > #dropdown {
+    display: inherit;
+}
+
+#dropdown li {
+    width: 170px;
+    float: none;
+    display: list-item;
+    position: relative;
+    border-top: 1px solid #333; /* subtle separator for dropdown items */
+}
+
+#dropdown li:first-child {
+    border-top: none; /* remove border for the first item */
+}
+
+#dropdown li ul li {
+    position: relative;
+    top: 0; /* adjust this value */
+    left: 100%; /* position the second tier dropdown to the right of the first tier */
+}
+
+#usersname > a:after {
+    content: ' ▼';
+}
+#usersname > a:only-child:after {
+    content: '';
+}
+
+#usersname {
+    display: inline-block;
+    background-color: #000000;
+    position: relative; /* set position to relative */
+}
+
+#usersname a, #dropdown a {
+    padding: 10px 15px; /* increased padding for better spacing */
+    display: block;
+}
+
+#usersname a:hover, #dropdown a:hover {
+    background-color: #ffffff;
+    color: #000; /* text color on hover */
+}
+
+
+</style>

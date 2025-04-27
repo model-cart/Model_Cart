@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{session['username']}} Profile</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        .profile {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+            background-color: #fff;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+        }
+        .profile__avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background-color: #ccc;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+        .profile__avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .profile__info {
+            text-align: center;
+        }
+        .profile__name {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+        .profile__email {
+            color: #777;
+            margin-bottom: 1rem;
+        }
+        .profile__logout {
+            margin-top: 1rem;
+        }
+        .profile__logout a {
+            text-decoration: none;
+            color: #4CAF50;
+            border: 1px solid #4CAF50;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+        }
+        .profile__logout a:hover {
+            background-color: #4CAF50;
+            color: #fff;
+        }
+        .site__spacer {
+            height: 72px; /* Adjust the height of the spacer to match the height of the fixed header */
+        }
+    </style>
+</head>
+{% include 'navbar.html' %}
+<body>
+    <div class="site__spacer"></div> <!-- Add a spacer div to push the content below the fixed header -->
+    <div class="container">
+        <div class="profile">
+            <div class="profile__avatar">
+                <img src="static/img.png" alt="Image">
+            </div>
+            <div class="profile__info">
+                <div class="profile__name"> {{ session['username'] }} </div>
+                <div class="profile__email">john.doe@example.com</div>
+            </div>
+            <div class="profile__logout">
+                <a href="{{ url_for('logout') }}">Logout</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

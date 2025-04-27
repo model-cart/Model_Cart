@@ -1,0 +1,149 @@
+## Model configuration for Cancer dataset
+experiment_name: Cancer_experiment
+
+data:
+  data_set:
+  data_file: Experiment_repository/Cancerdata.csv
+  target: diagnosis # M->1, B->0
+  delimiter: ',' # [;  ,]
+  split-method: train_test_split # KFold, train_test_split
+  n_splits:
+  additional_parameters:
+    train_size:
+    test_size: 0.5
+    random_state: 42
+    stratify:
+    shuffle:
+
+models:
+  model1:
+    module: sklearn.tree
+    name: DecisionTreeClassifier
+    description: Checking the roc_auc_score for DTC #this model is having different criterion
+    params:
+#      bootstrap: True
+#      ccp_alpha: 0.0
+#      class_weight: None
+      criterion: gini
+#      max_depth: None
+#      max_features: sqrt
+#      max_leaf_nodes: None
+#      max_samples: None
+#      min_impurity_decrease: 0.0
+#      min_samples_leaf: 1
+#      min_samples_split: 2
+#      min_weight_fraction_leaf: 0.0
+#      n_estimators: 100
+#      n_jobs: None
+#      oob_score: False
+#      random_state: None
+#      verbose: 0
+#      warm_start: False
+#    hyperparameters:
+#      C: 1.0
+#      penalty: l2
+#      solver: lbfgs
+    evaluation:
+          accuracy_score: sklearn.metrics
+          confusion_matrix: sklearn.metrics
+          classification_report: sklearn.metrics
+          cohen_kappa_score: sklearn.metrics
+          precision_score: sklearn.metrics
+          recall_score: sklearn.metrics
+          f1_score: sklearn.metrics
+
+  model2:
+    module: sklearn.linear_model
+    name: LogisticRegression
+    description: Checking the roc_auc_score for LogisticRegression #this model is having different criterion
+    params:
+#      bootstrap: True
+#      ccp_alpha: 0.0
+#      class_weight: balanced
+#      criterion: gini
+#      max_depth: None
+#      max_features: sqrt
+#      max_leaf_nodes: None
+#      max_samples: None
+#      min_impurity_decrease: 0.0
+#      min_samples_leaf: 1
+#      min_samples_split: 2
+#      min_weight_fraction_leaf: 0.0
+#      n_estimators: 100
+#      n_jobs: 2
+#      oob_score: False
+#      random_state: 3
+#      verbose: 0
+#      warm_start: False
+      C: 0.2
+#    hyperparameters:
+#      C: 1.0
+#      penalty: l2
+#      solver: lbfgs
+    evaluation:
+      accuracy_score: sklearn.metrics
+      confusion_matrix: sklearn.metrics
+      classification_report: sklearn.metrics
+      cohen_kappa_score: sklearn.metrics
+      precision_score: sklearn.metrics
+      recall_score: sklearn.metrics
+      f1_score: sklearn.metrics
+
+  model3:
+    module: sklearn.ensemble
+    name: RandomForestClassifier
+    description: Checking the roc_auc_score for RFC #this model is having different criterion
+    params:
+      #      bootstrap: True
+      #      ccp_alpha: 0.0
+      #      class_weight: balanced
+      #      criterion: gini
+            max_depth: 5
+      #      max_features: sqrt
+      #      max_leaf_nodes: None
+      #      max_samples: None
+      #      min_impurity_decrease: 0.0
+      #      min_samples_leaf: 1
+      #      min_samples_split: 2
+      #      min_weight_fraction_leaf: 0.0
+      #      n_estimators: 100
+      #      n_jobs: 2
+      #      oob_score: False
+            random_state: 42
+      #      verbose: 0
+      #      warm_start: False
+      #      C: 0.2
+    #    hyperparameters:
+    #      C: 1.0
+    #      penalty: l2
+    #      solver: lbfgs
+    evaluation:
+      accuracy_score: sklearn.metrics
+      confusion_matrix: sklearn.metrics
+      classification_report: sklearn.metrics
+      cohen_kappa_score: sklearn.metrics
+      precision_score: sklearn.metrics
+      recall_score: sklearn.metrics
+      f1_score: sklearn.metrics
+  
+  model4:
+   module: xgboost
+   name: XGBClassifier
+   description: Checking the roc_auc_score for xgboost #this model is having different criterion
+   params:
+#      ccp_alpha: 0.0
+#      class_weight: balanced
+#      criterion: gini
+#      splitter: best
+     max_depth: 5
+#      max_features: sqrt
+#      min_samples_leaf: 1
+#      min_samples_split: 5
+   evaluation:
+     accuracy_score: sklearn.metrics
+     confusion_matrix: sklearn.metrics
+     classification_report: sklearn.metrics
+     cohen_kappa_score: sklearn.metrics
+     precision_score: sklearn.metrics
+     recall_score: sklearn.metrics
+     f1_score: sklearn.metrics

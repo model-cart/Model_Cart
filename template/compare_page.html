@@ -1,0 +1,1575 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Compare Runs</title>
+
+    <style>
+        /* Universal Styling */
+        body, html {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+            color: #333;
+        }
+        /* Container */
+        .container {
+            max-width: 1200px;
+            width: 95%;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 30px 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        /* Headings */
+        h1, h2 {
+            margin-bottom: 20px;
+            color: #4a90e2;  /* Adding a distinct color for headers */
+        }
+        /* Charts */
+        .chart-section {
+            padding: 20px;
+            background-color: #f9f9f9;  /* Light background */
+            border-radius: 10px;
+            border: 1px solid #e0e0e0;
+            margin-bottom: 30px;
+        }
+        /* SVG and Divs for Graphs */
+        #bar-chart, #shap-bar-chart, #model-explanations-chart {
+            width: 100%;
+            max-height: 500px;
+            margin: 0 auto;
+            border: 1px solid #ccc;  /* Slightly darker border */
+        }
+        #heatmap {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+        }
+        .bar {
+            opacity: 0.7;
+        }
+        .tooltip, .shaptooltip {
+            position: absolute;
+            text-align: center;
+            background: #333;
+            color: #fff;
+            padding: 6px;
+            border-radius: 6px;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        /* Dropdown */
+        #metric-select {
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 20px;
+        }
+        .axis text {
+            font-size: 12px;
+        }
+                .cart-form input[type="submit"] {
+            display: inline-block;
+            font-size: 16px;
+            padding: 10px 30px;
+            color: #fff;
+            background-color: #4CAF50;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.5s ease;
+            margin: 20px 0;
+        }
+        .cart-form input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+        .site__spacer{
+            height: 72px;
+        }
+
+
+
+.ui-input-container {
+  background-color: #fff;
+  padding: 3rem;
+  border-radius: 4px;
+  width: 50%;
+  margin: 0 auto;
+}
+.ui-form-input-container {
+  position: relative;
+  font-size: 1rem;
+  margin-bottom: 15px;
+  display: block;
+}
+.ui-input-container h2 {
+  font-family: sans-serif;
+  margin-bottom: 20px;
+  font-weight: 700;
+  text-transform: capitalize;
+}
+.ui-form-input {
+  padding: 13px 5px;
+  border-radius: 8px;
+  border: 2px solid #1a73e8;
+  outline: 0;
+  width: 100%;
+}
+
+.form-input-label {
+  position: absolute;
+  top: -7px;
+  left: 10px;
+  color: #1a73e8;
+  font-size: 0.85rem;
+  padding-right: 0.33rem;
+  padding-left: 0.33rem;
+  background: #fff;
+  transition: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: sans-serif;
+  text-transform: capitalize;
+}
+
+.ui-form-btn {
+  padding: 13px 15px;
+  border-radius: 8px;
+  background: #1a73e8;
+  outline: 0;
+  width: 100%;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  color: white;
+  font-weight: 500;
+}
+
+.error .ui-form-input,
+.error .form-input-label {
+  border-color: #d50000;
+  color: #d50000;
+}
+
+textarea {
+  min-height: 6em;
+  max-height: 50vh;
+  width: 100%;
+}
+
+
+         .fill:hover, .fill:focus {
+	 box-shadow: inset 0 0 0 2em var(--hover);
+}
+ .pulse:hover, .pulse:focus {
+	 animation: pulse 1s;
+	 box-shadow: 0 0 0 2em transparent;
+}
+ @keyframes pulse {
+	 0% {
+		 box-shadow: 0 0 0 0 var(--hover);
+	}
+}
+ .close:hover, .close:focus {
+	 box-shadow: inset -3.5em 0 0 0 var(--hover), inset 3.5em 0 0 0 var(--hover);
+}
+ .raise:hover, .raise:focus {
+	 box-shadow: 0 0.5em 0.5em -0.4em var(--hover);
+	 transform: translateY(-0.25em);
+}
+ .up:hover, .up:focus {
+	 box-shadow: inset 0 -3.25em 0 0 var(--hover);
+}
+ .slide:hover, .slide:focus {
+	 box-shadow: inset 6.5em 0 0 0 var(--hover);
+}
+ .offset {
+	 box-shadow: 0.3em 0.3em 0 0 var(--color), inset 0.3em 0.3em 0 0 var(--color);
+}
+ .offset:hover, .offset:focus {
+	 box-shadow: 0 0 0 0 var(--hover), inset 6em 3.5em 0 0 var(--hover);
+}
+ .fill {
+	 --color: #a972cb;
+	 --hover: #cb72aa;
+}
+ .pulse {
+	 --color: #ef6eae;
+	 --hover: #ef8f6e;
+}
+ .close {
+	 --color: #ff7f82;
+	 --hover: #ffdc7f;
+}
+ .raise {
+	 --color: #ffa260;
+	 --hover: #e5ff60;
+}
+ .up {
+	 --color: #6fa200;
+	 --hover: #94e458;
+}
+ .slide {
+	 --color: #8fc866;
+	 --hover: #66c887;
+}
+ .offset {
+	 --color: #19bc8b;
+	 --hover: #1973bc;
+}
+ button {
+	 color: var(--color);
+	 transition: 0.25s;
+}
+ button:hover, button:focus {
+	 border-color: var(--hover);
+	 color: #fff;
+}
+
+ button {
+	 background: none;
+	 border: 2px solid;
+	 font: inherit;
+	 line-height: 1;
+	 margin: 0.5em;
+	 padding: 1em 2em;
+     margin-left: 450px;
+}
+ h1 {
+	 font-weight: 400;
+}
+ code {
+	 color: #6fa200;
+	 font: inherit;
+}
+
+        #SelectTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+#SelectTable tbody tr {
+    cursor: grab;
+    transition: transform 0.2s ease-in-out, background 0.2s ease-in-out;
+    background-color: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+#SelectTable tbody tr:hover {
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+#SelectTable tbody tr.reordering,
+#SelectTable tbody tr:active {
+    background-color: #ccc;
+    cursor: grabbing;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.15), 0 15px 30px rgba(0, 0, 0, 0.15);
+    z-index: 4;
+}
+
+    #SelectTable th, #SelectTable td {
+        padding: 10px 15px;
+        text-align: left;
+        border-bottom: 1px solid #e0e0e0;
+    }
+
+    #SelectTable th {
+        background-color: #4CAF50;
+        color: white;
+    }
+
+    #SelectTable tr:hover {
+        background-color: #f7f9fc;
+    }
+
+    #SelectTable a {
+
+        text-decoration: none;
+    }
+
+    #SelectTable a:hover {
+        text-decoration: underline;
+    }
+
+    .runPriority {
+        width: 60px;
+        padding: 5px;
+        /*border: 1px solid #e0e0e0;*/
+        border-radius: 4px;
+        font-size: 14px;
+        background-color: #e9e9e9;
+        border: 1px solid #d3d3d3;
+        cursor: not-allowed;
+    }
+
+
+    .selectRun {
+        cursor: pointer;
+    }
+    .card.reordering {
+    transition: transform 0.3s ease-out;
+    }
+    #SelectTable tbody.reordering {
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    }
+    .drag-handle {
+    cursor: grab;
+    padding: 8px;
+    text-align: center;
+    background-color: #f4f4f4;
+    font-size: 14px;
+}
+
+tr:active .drag-handle {
+    cursor: grabbing;
+}
+
+#runDurationChart .bar {
+    fill: #4682B4;
+    transition: fill 0.3s ease;
+}
+
+#runDurationChart .bar:hover {
+    fill: #5F9EA0;
+}
+
+.durationtooltip {
+    position: absolute;
+    text-align: center;
+    width: 150px;
+    height: auto;
+    padding: 10px;
+    background-color: #ffffff;
+    border: 1px solid #333;
+    border-radius: 5px;
+    pointer-events: none;
+}
+
+ul.flashes {
+    list-style-type: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+ul.flashes li {
+    padding: 10px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+ul.flashes li.warning {
+    background-color: #ffcccb;
+    color: #a00;
+    border: 1px solid #d40000;
+}
+
+ul.flashes li.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.datatooltip {
+  position: relative;
+}
+.datatooltip-content {
+  display: none;
+  position: absolute;
+  bottom: 100%;
+  left: 80%;
+  transform: translateX(-50%);
+  padding: 10px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  z-index: 1;
+  width: max-content;
+  max-width: 400px;
+}
+
+.datatooltip:hover .datatooltip-content {
+  display: block;
+}
+
+
+.toggle-button-cover {
+  display: table-cell;
+  position: relative;
+  width: 200px;
+  height: 40px;
+  box-sizing: border-box;
+}
+
+.knobs,
+.layer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.button.r {
+  position: relative;
+  top: 10%;
+  width: 74px;
+  height: 22px;
+  margin: -20px auto 0 auto;
+  overflow: hidden;
+}
+
+.button.r,
+.button.r .layer {
+  border-radius: 100px;
+}
+
+.button.b2 {
+  border-radius: 2px;
+}
+
+.checkbox {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 3;
+}
+
+.knobs {
+  z-index: 2;
+}
+
+.layer {
+  width: 100%;
+  background-color: #ebf7fc;
+  transition: 0.3s ease all;
+  z-index: 1;
+}
+
+/* Button 4 */
+#button-4 .knobs:before,
+#button-4 .knobs:after {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: 20px;
+  height: 10px;
+  color: black;
+  font-size: 10px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 1;
+  padding: 9px 4px;
+  background-color: #03a9f4;
+  border-radius: 50%;
+  transition: 0.3s cubic-bezier(0.18, 0.89, 0.35, 1.15) all;
+}
+
+#button-4 .knobs:before {
+  content: "Apex";
+}
+
+#button-4 .knobs:after {
+  content: "High";
+}
+
+#button-4 .knobs:after {
+  top: -28px;
+  right: 4px;
+  left: auto;
+  background-color: #FE6A35;
+}
+
+#button-4 .checkbox:checked + .knobs:before {
+  top: -28px;
+}
+
+#button-4 .checkbox:checked + .knobs:after {
+  top: 4px;
+}
+
+#button-4 .checkbox:checked ~ .layer {
+  background-color: #fcebeb;
+}
+
+
+    </style>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/modules/heatmap.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="https://code.highcharts.com/modules/export-data.js"></script>
+    <script src="https://code.highcharts.com/modules/series-label.js"></script>
+    <script src="https://code.highcharts.com/modules/accessibility.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+
+</head>
+<body>
+    {% include 'navbar.html' %}
+    <div class="site__spacer"></div>
+    <div class="container">
+      <div style="background-color: #eef2f7; padding: 15px; border-radius: 6px; box-shadow: 0 3px 5px rgba(0,0,0,0.1); margin-bottom: 20px;">
+            <h2 class="mb-4" style="font-family: 'Arial', sans-serif; font-weight: bold; color: #333; display: flex; align-items: center;">
+                <i class="fas fa-balance-scale" style="margin-right: 10px; font-size: 24px;"></i> Model Comparison for {{run_experiment_id}} - {{run_experiment_name}}
+            </h2>
+        </div>
+                            {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                    <ul class=flashes>
+                        {% for category, message in messages %}
+                        <li class="{{ category }}">{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                    {% endwith %}
+
+        <div class="site__spacer"></div>
+        <!--To activate the selection between ApexChart and HighChart, uncomment below toggle button-->
+<!--        <div class="toggle-button-cover">-->
+<!--            <div class="button r" id="button-4">-->
+<!--              <input type="checkbox" class="checkbox" id="DvToggle"/>-->
+<!--              <div class="knobs"></div>-->
+<!--              <div class="layer"></div>-->
+<!--            </div>-->
+<!--        </div>-->
+        <div style="background-color: #eef2f7; padding: 15px; border-radius: 6px; box-shadow: 0 3px 5px rgba(0,0,0,0.1); margin-bottom: 20px;">
+            <h2 class="mb-4" style="font-family: 'Arial', sans-serif; font-weight: bold; color: #333; display: flex; align-items: center;" data-bs-toggle="collapse" data-bs-target="#section1Content" aria-expanded="true" aria-controls="section1Content">
+                <i class="fas fa-chart-line" style="margin-right: 10px; font-size: 20px;"></i> Section 1: Performance Comparison of the Models
+            </h2>
+        </div>
+        <div id="section1Content" class="collapse show">
+        <!-- Bar Chart for Metrics Comparison -->
+
+        <div class="chart-section">
+
+            <select id="metric-select"></select>
+
+            <div id="bar-chart-apexchart" style="width: 960px; height: 450px; margin: 0 auto; border: none; display: block;"></div>
+            <div id="bar-chart-highchart" style="width: 960px; height: 450px; margin: 0 auto; border: none; display: none;"></div>
+
+<!-- Drop-down for selecting the metric -->
+<script>
+const metricsComparison_apex = {{ metrics_comparison|tojson }};
+const runNameMapping_apex = {{ run_mapping|tojson }};
+
+const barColors = ['#007bff', '#6610f2', '#6f42c1', '#e83e8c', '#fd7e14', '#ffc107', '#28a745', '#20c997', '#17a2b8', '#dc3545'];
+
+function drawApexBarChart(selectedMetric) {
+    const data = metricsComparison_apex[selectedMetric].map((d,index) => {
+        return {
+            x: runNameMapping_apex[d.run_id] + ' (' + d.run_id + ')',
+            y: d.value,
+            fillColor: barColors[index % barColors.length]
+        };
+    });
+    const dataValues = data.map(d => d.y);
+    const minValue = Math.min(...dataValues);
+
+    const options = {
+        series: [{
+            name: selectedMetric,
+            data: data.map(d => ({ x: d.x, y: d.y }))
+        }],
+        chart: {
+            type: 'bar',
+            height: 450,
+            background: '#f9f9f9'
+        },
+        colors: barColors,
+        plotOptions: {
+            bar: {
+                borderRadius: 10,
+                distributed: true,
+                dataLabels: {
+                    position: 'top',
+                },
+            }
+        },
+        dataLabels: {
+            enabled: true,
+            formatter: function (val) {
+                return val;
+            },
+            offsetY: -20,
+            style: {
+                fontSize: '12px',
+                colors: ["#304758"]
+            }
+        },
+        xaxis: {
+
+            position: 'top',
+            axisBorder: {
+                show: false
+            },
+            axisTicks: {
+                show: false
+            },
+            tooltip: {
+                enabled: false,
+            },
+            labels: {
+                show: false
+            }
+        },
+        yaxis: {
+            title: {
+                text: 'Value'
+            },
+            min: minValue > 0 ? minValue * 0.9 : 0,
+            axisBorder: {
+                show: false
+            },
+            axisTicks: {
+                show: false,
+            },
+            labels: {
+                show: false,
+                formatter: function (val) {
+                    return val;
+                }
+            }
+        },
+        title: {
+            text: 'Bar Chart for ' + selectedMetric,
+
+            align: 'center',
+            style: {
+                color: '#444'
+            }
+        }
+    };
+
+    if (window.chart) {
+        window.chart.destroy();
+    }
+
+    window.chart = new ApexCharts(document.querySelector("#bar-chart-apexchart"), options);
+    window.chart.render();
+}
+
+// Initialize dropdown
+let dropdown_apex = document.getElementById('metric-select');
+Object.keys(metricsComparison_apex).forEach(function (metric) {
+    let option = new Option(metric, metric);
+    dropdown_apex.add(option);
+});
+
+// Listen for dropdown changes to update the chart
+dropdown_apex.addEventListener('change', function() {
+    drawApexBarChart(this.value);
+});
+
+// Draw the initial chart
+drawApexBarChart(Object.keys(metricsComparison_apex)[0]);
+</script>
+
+
+
+<!--HighChart Script for the performance plot-->
+<script>
+    const metricsComparison = {{ metrics_comparison|tojson }};
+    const runNameMapping = {{ run_mapping|tojson }};
+
+    // Function to draw the Highcharts bar chart
+    function drawHighchartsBar(selectedMetric) {
+    const data = metricsComparison[selectedMetric].map(d => {
+        return {
+            name: runNameMapping[d.run_id] + ' (' + d.run_id + ')', // Combine the run name and run_id
+            y: d.value
+        };
+    });
+
+    Highcharts.chart('bar-chart-highchart', {
+        chart: {
+            type: 'bar',
+            backgroundColor: '#f9f9f9',
+        },
+        title: {
+            text: 'Bar Chart for ' + selectedMetric
+        },
+        xAxis: {
+            categories: data.map(d => d.name),
+            title: {
+                text: 'Runs'
+            },
+        },
+        yAxis: {
+            min: Math.min(...data.map(d => d.y)),
+            title: {
+                text: 'Value'
+            }
+        },
+        tooltip: {
+            headerFormat: '<span style="font-size:10px">{point.key}</span><br/>',
+            pointFormat: '<span style="color:{point.color}">\u25CF</span> {series.name}: <b>{point.y:.3f}</b><br/>'
+        },
+        credits: {
+      enabled: false
+    },
+        series: [{
+            name: selectedMetric,
+            data: data,
+            colorByPoint: true
+        }],
+        plotOptions: {
+            bar: {
+                dataLabels: {
+                    enabled: true
+                }
+            }
+        }
+    });
+}
+
+    // Populate dropdown with options and attach event listener
+    let dropdown = document.getElementById('metric-select');
+    Object.keys(metricsComparison).forEach(function (metric) {
+        let option = new Option(metric, metric);
+        dropdown.add(option);
+    });
+
+    dropdown.addEventListener('change', function() {
+        drawHighchartsBar(this.value);
+    });
+
+    // Initialize by drawing the bar chart for the first metric
+    drawHighchartsBar(Object.keys(metricsComparison)[0]);
+</script>
+        </div>
+        </div>
+
+<!--        Bar chart for the Model Explanation-->
+        <div class="site__spacer"></div>
+            <div style="background-color: #eef2f7; padding: 15px; border-radius: 6px; box-shadow: 0 3px 5px rgba(0,0,0,0.1); margin-bottom: 20px;">
+                    <h2 class="mb-4" style="font-family: 'Arial', sans-serif; font-weight: bold; color: #333; display: flex; align-items: center;">
+                        <i class="fas fa-comments" style="margin-right: 10px; font-size: 20px;"></i> Section 2: Explanation Comparison of the Models
+                    </h2>
+            </div>
+        <div class="chart-section">
+            <h2>Diagram of Model Explanations using SHAP values of each feature for different models</h2>
+            <div id="shap-bar-chart-container-apexchart" style="min-width: 310px; height: 400px; margin: 0 auto; display: block"></div>
+            <div id="shap-bar-chart-container-highchart" style="min-width: 310px; height: 400px; margin: 0 auto;  display: none;"></div>
+<!--Shap stacked bar chart using apex charts-->
+            <script>
+const shapValuesList_apex = {{ run_shap_values_list|tojson }};
+const runIdNameMapping_apex = {{ run_mapping|tojson }};
+
+// Process the data
+let seriesData_apex = shapValuesList_apex.map(run => {
+  let series = {
+    name: runIdNameMapping_apex[run.run_id] + ' (' + run.run_id + ')',
+    data: []
+  };
+  Object.entries(run.values).forEach(([key, value]) => {
+    series.data.push(parseFloat(value).toFixed(2));
+  });
+  return series;
+});
+
+let categories_apex = [...new Set(shapValuesList_apex.flatMap(run => Object.keys(run.values)))];
+
+// Set up ApexCharts
+var options_shap = {
+  series: seriesData_apex,
+  chart: {
+    type: 'bar',
+    stacked: true,
+    toolbar: {
+      show: true
+    }
+  },
+  plotOptions: {
+    bar: {
+      horizontal: true,
+    }
+  },
+  stroke: {
+    width: 1,
+    colors: ['#fff']
+  },
+  title: {
+    text: 'SHAP Value Comparison',
+      align: 'center'
+  },
+  xaxis: {
+    categories: categories_apex,
+    labels: {
+      formatter: function(val) {
+        return parseFloat(val).toFixed(2);
+      }
+    }
+  },
+  yaxis: {
+    title: {
+      text: undefined
+    },
+  },
+  tooltip: {
+    y: {
+      formatter: function (val) {
+        return val.toFixed(2);
+      }
+    }
+  },
+  fill: {
+    opacity: 1
+  },
+  legend: {
+    position: 'bottom',
+    horizontalAlign: 'left',
+    offsetX: 40
+  }
+};
+
+// Initialize the chart
+var chart_shap = new ApexCharts(document.querySelector("#shap-bar-chart-container-apexchart"), options_shap);
+chart_shap.render();
+</script>
+
+            <!--            Stacked Bar chart for SHap values using Highcharts-->
+            <script>
+
+  const shapValuesList = {{ run_shap_values_list|tojson }};
+  const runIdNameMapping = {{ run_mapping|tojson }};
+
+  // Process the data
+  let seriesData = shapValuesList.map(run => {
+    return {
+      name: runIdNameMapping[run.run_id] + ' (' + run.run_id + ')', // Combine the run name and run_id
+      data: Object.entries(run.values).map(([key, value]) => {
+        return {
+          name: key,
+          y: parseFloat(value)
+        };
+      })
+    };
+  });
+
+  // Sort the data by key to ensure consistent color mapping
+  seriesData.forEach(series => {
+    series.data.sort((a, b) => a.name.localeCompare(b.name));
+  });
+
+  // Extract unique keys for categories
+  let categories = [...new Set(seriesData.flatMap(series => series.data.map(point => point.name)))];
+
+  // Set up Highcharts
+  Highcharts.chart('shap-bar-chart-container-highchart', {
+    chart: {
+      type: 'bar',
+        backgroundColor: '#f9f9f9'
+    },
+    title: {
+      text: 'SHAP Value Comparison'
+    },
+    xAxis: [{
+      categories: categories,
+      reversed: false,
+      labels: {
+        step: 1
+      },
+      crosshair: true
+    }],
+    yAxis: {
+      title: {
+        text: 'SHAP value'
+      }
+    },
+    plotOptions: {
+      series: {
+        stacking: 'normal'
+      }
+    },
+    tooltip: {
+      formatter: function () {
+        return `<b>${this.series.name}</b><br/>${this.point.name}: ${this.point.y}`;
+      }
+    },
+         credits: {
+      enabled: false
+    },
+    series: seriesData
+  });
+</script>
+        </div>
+
+        <!-- Heatmap of the Explanation Wasserstein Distances -->
+        <div class="chart-section">
+            <h2>Heatmap of the Explanation Distances</h2>
+                <div id="heatmapContainer-apexchart" style="min-width: 310px; max-width: 800px; height: 510px; margin: 0 auto; display: block;"></div>
+                <div id="heatmapContainer-highchart" style="min-width: 310px; max-width: 800px; height: 510px; margin: 0 auto; display: none;"></div>
+<script>
+  const heatmapModelExplanationsMatrix_apex = {{ model_explanations_matrix|tojson }};
+  const runMapping_apex = {{ run_mapping|tojson }};
+
+  let rows_apex = Object.keys(heatmapModelExplanationsMatrix_apex);
+  let cols_apex = Object.keys(heatmapModelExplanationsMatrix_apex[rows_apex[0]]);
+  let colorAxisMax_apex = 0;
+
+
+  let seriesData_heatmap_apex = cols_apex.map((_, colIndex) => {
+    return {
+      name: runMapping_apex[cols_apex[colIndex]] + ' (' + cols_apex[colIndex] + ')',
+      data: rows_apex.map((rowKey, rowIndex) => {
+        let value = heatmapModelExplanationsMatrix_apex[rowKey][cols_apex[colIndex]];
+        colorAxisMax_apex = Math.max(colorAxisMax_apex, Math.abs(value));
+        return {
+          x: runMapping_apex[rowKey] + ' (' + rowKey + ')',
+          y: value
+        };
+      })
+    };
+  });
+
+  var options = {
+    chart: {
+      type: 'heatmap',
+      height: 450,
+        width: 550,
+      toolbar: {
+        show: false
+      },
+        margin: {
+    bottom: 100
+  }
+    },
+    plotOptions: {
+      heatmap: {
+        shadeIntensity: 0.5,
+        radius: 0,
+        useFillColorAsStroke: true,
+        colorScale: {
+          ranges: [{
+            from: 0,
+            to: colorAxisMax_apex,
+            name: 'high',
+            color: '#6A0DAD'
+          },
+          {
+            from: -colorAxisMax_apex,
+            to: 0,
+            name: 'low',
+            color: '#E0BBE4'
+          }]
+        }
+      }
+    },
+    dataLabels: {
+      enabled: true,
+      style: {
+        fontSize: '16px',
+        cssClass: 'apexcharts-xaxis-label',
+        colors: ['#000'],
+      },
+      formatter: function(val, opts) {
+        return val.toFixed(2);
+      }
+    },
+    series: seriesData_heatmap_apex,
+ xaxis: {
+  type: 'category',
+  categories: rows_apex.map(row => runMapping_apex[row] + ' (' + row + ')'),
+  labels: {
+    rotate: 0,
+    trim: true,
+    style: {
+      fontSize: '12px',
+      cssClass: 'apexcharts-xaxis-label'
+    },
+    maxHeight: 120,
+    formatter: function (value) {
+      return value.length > 10 ? value.substring(0, 10) + '...' : value;
+    }
+  },
+  axisTicks: {
+    show: true
+  },
+  tooltip: {
+    enabled: true,
+    formatter: function (value, { series, seriesIndex, dataPointIndex, w }) {
+
+      return w.config.xaxis.categories[dataPointIndex];
+    }
+  }
+},
+
+    yaxis: {
+      reversed: true,
+      labels: {
+        formatter: function(val) {
+          return val;
+        }
+      },
+    },
+    title: {
+      text: 'Wasserstein distance between the Models',
+      align: 'center'
+    },
+    grid: {
+      padding: {
+        top: 10
+      }
+    },
+tooltip: {
+  custom: function({ series, seriesIndex, dataPointIndex, w }) {
+    const yName = w.globals.labels[seriesIndex];
+    const xName = w.config.xaxis.categories[dataPointIndex];
+    const value = series[seriesIndex][dataPointIndex];
+
+    return (
+      '<div class="arrow_box" style="background: white; color: black; border: 1px solid #ccc; padding: 10px; border-radius: 5px; box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);">' +
+      '<span><strong>' + xName + '<br></strong> vs <strong><br>' + yName + '</strong></span><br>' +
+      '<span>Value: <strong>' + value.toFixed(2) + '</strong></span>' +
+      '</div>'
+    );
+  },
+  x: {
+    show: false
+  },
+  y: {
+    show: false
+  },
+  fixed: {
+    enabled: false
+  }
+
+},
+
+  };
+
+  var chart_heatmap = new ApexCharts(document.querySelector("#heatmapContainer-apexchart"), options);
+  chart_heatmap.render();
+</script>
+
+            <!--Heatmap using HighChart-->
+<script>
+
+  const heatmapModelExplanationsMatrix = {{ model_explanations_matrix|tojson }};
+  const runMapping = {{ run_mapping|tojson }};
+
+  let rows = Object.keys(heatmapModelExplanationsMatrix);
+  let cols = Object.keys(heatmapModelExplanationsMatrix[rows[0]]);
+  let colorAxisMax = 0;
+
+  // Prepare data for Highcharts heatmap
+  let seriesData_heatmap = [];
+
+  rows.forEach((rowKey, rowIndex) => {
+    cols.forEach((colKey, colIndex) => {
+      let value = heatmapModelExplanationsMatrix[rowKey][colKey];
+      colorAxisMax = Math.max(colorAxisMax, Math.abs(value));
+      seriesData_heatmap.push({
+        x: colIndex,
+        y: rowIndex,
+        value: value,
+        name: runMapping[rowKey] + ' (' + rowKey + ')' + ' vs ' + runMapping[colKey] + ' (' + colKey + ')'
+      });
+    });
+  });
+
+  Highcharts.chart('heatmapContainer-highchart', {
+    chart: {
+      type: 'heatmap',
+      marginTop: 40,
+      marginBottom: 80,
+      plotBorderWidth: 1,
+      backgroundColor: '#f9f9f9'
+    },
+    title: {
+      text: 'Wasserstein distance between the Models'
+    },
+    xAxis: {
+      categories: cols.map(col => runMapping[col] + ' (' + col + ')'),
+       labels: {
+        style: {
+            fontSize: '12px',
+            color: '#000000'
+        }
+      }
+    },
+    yAxis: {
+      categories: rows.map(row => runMapping[row] + ' (' + row + ')'),
+      title: null,
+      reversed: true,
+      labels: {
+        style: {
+            fontSize: '12px',
+            color: '#000000'
+        }
+      }
+    },
+    colorAxis: {
+      min: 0,
+      max: colorAxisMax,
+      minColor: '#FFFFFF',
+      maxColor: '#FF6F61',
+    },
+    legend: {
+      align: 'right',
+      layout: 'vertical',
+      margin: 0,
+      verticalAlign: 'top',
+      y: 25,
+      symbolHeight: 320
+    },
+    series: [{
+      name: 'Heatmap',
+      borderWidth: 1,
+      data: seriesData_heatmap,
+      dataLabels: {
+        enabled: true,
+        color: '#000000',
+        style: {
+          textOutline: 'none',
+            fontSize: '12px'
+        },
+        formatter: function () {
+          return this.point.value.toFixed(2);
+        }
+      }
+    }],
+    tooltip: {
+      formatter: function () {
+        return this.point.name + '<br>Value: <b>' + this.point.value.toFixed(3) + '</b>';
+      }
+    },
+    credits: {
+      enabled: false
+    }
+  });
+
+</script>
+        </div>
+
+                <!-- Time aspect comparison of the selected models -->
+<div class="site__spacer"></div>
+<div style="background-color: #eef2f7; padding: 15px; border-radius: 6px; box-shadow: 0 3px 5px rgba(0,0,0,0.1); margin-bottom: 20px;">
+    <h2 class="mb-4" style="font-family: 'Arial', sans-serif; font-weight: bold; color: #333; display: flex; align-items: center;">
+        <i class="fas fa-clock" style="margin-right: 10px; font-size: 20px;"></i> Section 3: Time Aspect Comparison of the Models
+    </h2>
+</div>
+<div class="chart-section">
+    <h2>Time Taken by Models For Training</h2>
+    <div id="runDurationChartContainer-apexchart" style="min-width: 310px; max-width: 800px; height: 510px; margin: 0 auto; display: block;"></div>
+    <div id="runDurationChartContainer-highchart" style="min-width: 310px; max-width: 800px; height: 510px; margin: 0 auto; display: none;"></div>
+
+<script>
+  const runDurationData_apex = {{ run_duration_dict|tojson }};
+
+  // Prepare data for ApexCharts
+  const run_categories_apex = Object.keys(runDurationData_apex);
+  const apexSeriesData_apex = Object.values(runDurationData_apex).map(duration => duration);
+
+
+  const apexCategories_apex = run_categories_apex.map(category => category.toString());
+
+
+
+  // Options for ApexCharts
+  const options_ttime = {
+    chart: {
+      height: 450,
+      type: 'line',
+      background: '#f9f9f9',
+      toolbar: {
+        show: true
+      }
+    },
+    series: [{
+      name: 'Training Time',
+      data: apexSeriesData_apex
+    }],
+    stroke: {
+      width: 2,
+      curve: 'smooth'
+    },
+    title: {
+      text: 'Run Duration Chart',
+      align: 'center'
+    },
+    xaxis: {
+         labels: {
+      show: false
+    },
+    categories: apexCategories_apex
+    },
+
+    yaxis: {
+      title: {
+        text: 'Time Duration (seconds)'
+      },
+      min: 0
+    },
+tooltip: {
+  y: {
+    formatter: function (val) {
+      return `${val} seconds`;
+    }
+  },
+  x: {
+    formatter: function (val, { series, seriesIndex, dataPointIndex, w }) {
+      if (typeof w.globals.categoryLabels[dataPointIndex] === 'string') {
+        const parts = w.globals.categoryLabels[dataPointIndex].split('-');
+        const runId = parts.length > 1 ? parts[1] : 'N/A';
+        const runName = parts[0];
+        return `Run ID: ${runId}<br>Run Name: ${runName}`;
+      } else {
+          console.log(w);
+          console.log(w.globals.categoryLabels[dataPointIndex]);
+        return `Run Name: N/A`;
+      }
+    }
+  }
+},
+    dataLabels: {
+      enabled: true,
+      formatter: function (val, { seriesIndex, dataPointIndex, w }) {
+        return w.globals.series[seriesIndex][dataPointIndex];
+      }
+    },
+    colors: ['#008FFB']
+  };
+
+  // Initialize the chart
+  const chart_ttime = new ApexCharts(document.querySelector("#runDurationChartContainer-apexchart"), options_ttime);
+
+  // Render the chart
+  chart_ttime.render();
+</script>
+
+
+
+
+    <!--HighChart Spline chart script for the Training Time-->
+<script>
+
+  const runDurationData = {{ run_duration_dict|tojson }};
+
+  // Prepare data for Highcharts
+  const run_categories = Object.keys(runDurationData);
+  const data = Object.values(runDurationData).map((duration, i) => {
+    return {
+      name: run_categories[i],
+      y: duration
+    };
+  });
+
+  // Render the Highcharts bar chart
+  Highcharts.chart('runDurationChartContainer-highchart', {
+    chart: {
+      type: 'spline',
+        backgroundColor: '#f9f9f9'
+    },
+    title: {
+      text: 'Run Duration Chart'
+    },
+    xAxis: {
+      categories: run_categories.map(category => category.split('-')[0]), // Only display run_id,
+      labels: {
+        rotation: -45, // Rotating the x-axis labels
+        align: 'right'
+      }
+    },
+    yAxis: {
+      min: 0,
+      title: {
+        text: 'Time Duration (seconds)'
+      }
+    },
+    tooltip: {
+      formatter: function () {
+        const runId = this.point.name.split('-')[1];
+        const runName = this.point.name.split('-')[0];
+        return `Run ID: ${runId}<br>Run Name: ${runName}<br>Duration: ${this.y} seconds`;
+      }
+    },
+         credits: {
+      enabled: false
+    },
+    series: [{
+      name: 'Training Time',
+      data: data,
+      colorByPoint: true,
+      dataLabels: {
+        enabled: true,
+        formatter: function () {
+          return this.y;
+        }
+      }
+    }]
+  });
+</script>
+</div>
+
+
+
+<!--        Human in the loop for the Observation Section-->
+        <div class="site__spacer"></div>
+        <div style="background-color: #eef2f7; padding: 15px; border-radius: 6px; box-shadow: 0 3px 5px rgba(0,0,0,0.1); margin-bottom: 20px;">
+            <h2 class="mb-4" style="font-family: 'Arial', sans-serif; font-weight: bold; color: #333; display: flex; align-items: center;">
+                <i class="fas fa-user-check" style="margin-right: 10px; font-size: 20px;"></i> Section 4: Human Expert Observation
+            </h2>
+        </div>
+ <div class="chart-section">
+
+            <table>
+                <th><h3 style="margin-left: 440px">Comparison Notes</h3></th>
+                <tr>
+
+                    <td>
+                        <form class="cart-form" method="post" action="{{ url_for('save_comparison') }}">
+                                            {% if comp %}
+                            <label class="ui-form-input-container">
+                            <textarea name="notes" class="ui-form-input"  style="margin-left: 220px;">{{comp.comparison_notes}}</textarea>
+                            <span class="form-input-label" style="margin-left: 220px;">{{session['username']}} Notes</span>
+                          </label>
+                {% else %}
+                    <!-- If 'comp' variable is empty, show empty textarea -->
+                             <label class="ui-form-input-container">
+                            <textarea class="ui-form-input" name="notes"   style="margin-left: 220px;">{{comp.comparison_notes}}</textarea>
+                            <span class="form-input-label" style="margin-left: 220px;">{{session['username']}} Notes</span>
+                          </label>
+
+                {% endif %}
+
+                            <!-- Loop through the run_ids and add them as hidden fields -->
+                            {% for run_id in selected_run_ids %}
+                            <input type="hidden" name="selected_run_ids[]" value="{{ run_id }}">
+                            {% endfor %}
+                            <br> <br>
+                            <input type="submit" value="Save Comparison" style="margin-left: 450px;">
+                        </form>
+
+                    </td>
+                </tr>
+
+            </table>
+        </div>
+
+<!--      Data Table for Model Priortization Section -->
+        <div style="background-color: #eef2f7; padding: 15px; border-radius: 6px; box-shadow: 0 3px 5px rgba(0,0,0,0.1); margin-bottom: 20px;">
+            <h2 class="mb-4" style="font-family: 'Arial', sans-serif; font-weight: bold; color: #333; display: flex; align-items: center;">
+                <i class="fas fa-tasks" style="margin-right: 10px; font-size: 20px;"></i> Model Prioritization
+            </h2>
+        </div>
+        <div class="chart-section" >
+            <table id="SelectTable">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Experiment ID</th>
+            <th>Run ID</th>
+            <th>Run Name</th>
+            <th>Priority</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for run_id, run_data in all_runs_data.items() %}
+        <tr onmousedown="showCoords(event)">
+            <td class="drag-handle">&#x2630;</td>
+            <td>{{ run_data.info.experiment_id }}</td>
+            <td class="datatooltip">
+    <a href="/run_details?run_id={{ run_data.info.run_id }}">
+        {{ run_data.info.run_id }}
+    </a>
+    <div class="datatooltip-content">
+        {{ run_notes_dict[run_data.info.run_id] if run_data.info.run_id in run_notes_dict else '' }}
+    </div>
+</td>
+            <td>{{ run_data.info.run_name }}</td>
+            <td><input type="number" class="runPriority" value="{{ loop.index }}" min="1" max="{{ all_runs_data|length }}" data-run-id="{{ run_data.info.run_id }}" readonly></td>
+            <td>
+                <input type="checkbox" class="selectRun" value="{{ run_data.info.run_id }}" data-experiment-id="{{ run_data.info.experiment_id }}" checked>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+            <div class="buttons">
+                      <button class="fill up" id="addToCart">Add Selected to Cart</button>
+            </div>
+
+            <script>
+                // dragable component
+    function showCoords(event) {
+    var startY = event.clientY;
+    var tableBody = document.querySelector('#SelectTable tbody');
+    var rows = Array.from(document.querySelectorAll('#SelectTable tbody tr'));
+    var currentRow = event.target.closest('tr');
+    var startIndex = rows.indexOf(currentRow);
+
+    if (!currentRow) return;
+    tableBody.classList.add('reordering');
+
+    function dragRow(event) {
+        var moveY = event.clientY - startY;
+
+        currentRow.style.transform = "translateY(" + moveY + "px)";
+        currentRow.classList.add('reordering');
+
+        rows.forEach((row, index) => {
+            if (row === currentRow) return;
+
+            var rect = row.getBoundingClientRect();
+            if (
+                (moveY > 0 && index === startIndex + 1 && event.clientY > rect.top + rect.height / 2) ||
+                (moveY < 0 && index === startIndex - 1 && event.clientY < rect.top + rect.height / 2)
+            ) {
+                tableBody.insertBefore(currentRow, moveY > 0 ? row.nextSibling : row);
+                rows = Array.from(document.querySelectorAll('#SelectTable tbody tr'));
+                startY = event.clientY;
+                startIndex = rows.indexOf(currentRow);
+            }
+        });
+    }
+
+    function endDrag() {
+        document.removeEventListener('mousemove', dragRow);
+        currentRow.style.transform = "";
+        currentRow.classList.remove('reordering');
+        tableBody.classList.remove('reordering');
+        updatePriorities();
+    }
+
+    document.addEventListener('mousemove', dragRow);
+    document.addEventListener('mouseup', endDrag, { once: true });
+}
+
+function updatePriorities() {
+    var rows = document.querySelectorAll('#SelectTable tbody tr');
+    rows.forEach((row, index) => {
+        var priorityInput = row.querySelector('.runPriority');
+        priorityInput.value = index + 1;
+    });
+}
+
+                // end code for the dragable component
+                //    set priority max value to the number of selected run_id's
+                document.addEventListener("DOMContentLoaded", function() {
+                // Validate runPriority input to ensure it doesn't exceed the max value
+                document.querySelectorAll(".runPriority").forEach(function(inputElem) {
+                    inputElem.addEventListener("input", function() {
+                        let maxVal = parseInt(inputElem.getAttribute("max"));
+                        let minVal = parseInt(inputElem.getAttribute("min"));
+
+                        if (parseInt(inputElem.value) > maxVal) {
+                            inputElem.value = maxVal;
+                        } else if (parseInt(inputElem.value) < minVal) {
+                            inputElem.value = minVal;
+                        }
+                    });
+                });
+            });
+
+
+                document.getElementById("addToCart").addEventListener("click", function() {
+                let selectedRuns = [];
+                let priorities = {};  // This will store the priority of each selected run
+
+                document.querySelectorAll(".selectRun:checked").forEach(function(checkbox) {
+                    let runId = checkbox.value;
+                    let experimentId = checkbox.getAttribute("data-experiment-id");
+
+                    // Get the priority for this run
+                    let priorityInput = document.querySelector('.runPriority[data-run-id="'+ runId +'"]');
+                    let priorityValue = priorityInput ? priorityInput.value : 0;
+                    priorities[runId] = priorityValue;
+
+                    selectedRuns.push(experimentId + '-' + runId);
+                });
+
+                // Create form data
+                let formData = new FormData();
+                selectedRuns.forEach(run => {
+                    formData.append("selected_runs[]", run);
+                });
+
+                // Also send the priorities
+                for (let runId in priorities) {
+                    formData.append("priorities[" + runId + "]", priorities[runId]);
+                }
+
+                // Make an AJAX call to send these runs to the backend
+    fetch('/add_to_cart', {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            alert(data.error);  // Display the error message from the server
+        } else {
+            window.location.href = "/cart";  // Redirect to the cart page if successful
+        }
+    })
+    .catch(error => {
+        console.error('There was a problem with the fetch operation:', error.message);
+        alert("Error while adding to cart!");
+    });
+});
+            </script>
+            <script>
+document.addEventListener('DOMContentLoaded', function () {
+    const chartToggle = document.getElementById('DvToggle');
+    const apexchartPerformanceContainer = document.getElementById('bar-chart-apexchart');
+    const highchartPerformanceContainer = document.getElementById('bar-chart-highchart');
+    const apexchartShapContainer = document.getElementById('shap-bar-chart-container-apexchart');
+    const highchartShapContainer = document.getElementById('shap-bar-chart-container-highchart');
+    const apexchartTtimeContainer = document.getElementById('runDurationChartContainer-apexchart');
+    const highchartTtimeContainer = document.getElementById('runDurationChartContainer-highchart');
+    const apexchartHeatmapContainer = document.getElementById('heatmapContainer-apexchart');
+    const highchartHeatmapContainer = document.getElementById('heatmapContainer-highchart');
+
+    // Toggle switch listener
+    chartToggle.addEventListener('change', function() {
+        if(this.checked) {
+            // Performance Chart
+            apexchartPerformanceContainer.style.display = 'none';
+            highchartPerformanceContainer.style.display = 'block';
+            // SHap chart
+            apexchartShapContainer.style.display = 'none';
+            highchartShapContainer.style.display = 'block';
+            // Training Time chart
+            apexchartTtimeContainer.style.display = 'none';
+            highchartTtimeContainer.style.display = 'block';
+            // Model Distance Heatmap
+            apexchartHeatmapContainer.style.display = 'none';
+            highchartHeatmapContainer.style.display = 'block';
+        } else {
+            // Performance Chart
+            highchartPerformanceContainer.style.display = 'none';
+            apexchartPerformanceContainer.style.display = 'block';
+            // SHap Chart
+            apexchartShapContainer.style.display = 'block';
+            highchartShapContainer.style.display = 'none';
+            // Training Time Chart
+            apexchartTtimeContainer.style.display = 'block';
+            highchartTtimeContainer.style.display = 'none';
+            // Model Distance Heatmap
+            apexchartHeatmapContainer.style.display = 'block';
+            highchartHeatmapContainer.style.display = 'none';
+            window.location.reload();
+
+        }
+
+    });
+});
+</script>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,169 @@
+## Model configuration for Wine dataset classification
+experiment_name: Wine_Classification_eML
+#Np dodge crosswinds apartment to swipe with 949 number 3
+
+data:
+  data_set:  # sklearn.datasets
+  data_file: Dataset_repository/winequality-red.csv #load_wine #winequality-red.csv
+  target: quality
+  split-method: train_test_split # KFold, train_test_split
+  n_splits:
+  additional_parameters:
+    train_size:
+    test_size: 0.2
+    random_state: 4
+    stratify:
+    shuffle:
+  # validation type
+#performance_evaluation:
+#      accuracy_score: sklearn.metrics
+#      confusion_matrix: sklearn.metrics
+#      classification_report: sklearn.metrics
+#      cohen_kappa_score: sklearn.metrics
+#      precision_score: sklearn.metrics
+#      recall_score: sklearn.metrics
+#      f1_score: sklearn.metrics
+models:
+  model1:
+    module: sklearn.tree
+    name: DecisionTreeClassifier
+    params:
+#      ccp_alpha: 0.0
+#      class_weight: balanced
+      criterion: entropy
+#      splitter: random
+#      max_depth: 2
+#      max_features: sqrt
+#      max_leaf_nodes:
+#      max_samples: None
+#      min_impurity_decrease: 0.0
+#      min_samples_leaf: 1
+#      min_samples_split: 2
+#      min_weight_fraction_leaf: 0.0
+#      n_estimators: 90
+#      n_jobs: None
+#      oob_score: False
+#      random_state: None
+#      verbose: 0
+#      warm_start: False
+#    hyperparameters:
+#      C: 1.0
+#      penalty: l2
+#      solver: lbfgs
+    evaluation:
+      accuracy_score: sklearn.metrics
+      confusion_matrix: sklearn.metrics
+      classification_report: sklearn.metrics
+      cohen_kappa_score: sklearn.metrics
+      precision_score: sklearn.metrics
+      recall_score: sklearn.metrics
+      f1_score: sklearn.metrics
+
+#      kappa_value: Y
+#      accuracy: Y
+#      precision: Y
+#      recall_score: Y
+#      f1_score: Y
+
+
+#  model2:
+#    module: sklearn.tree
+#    name: DecisionTreeClassifier # Type should be name
+#    params:
+##      ccp_alpha: 0.0
+#      class_weight: balanced
+#      criterion: log_loss
+#      splitter: best
+#    #      max_depth: None
+#    #      max_features: sqrt
+#    #      max_leaf_nodes: None
+#    #      max_samples: None
+#    #      min_impurity_decrease: 0.0
+#    #      min_samples_leaf: 1
+#    #      min_samples_split: 2
+#    #      min_weight_fraction_leaf: 0.0
+#    #      n_estimators: 90
+#    #      n_jobs: None
+#    #      oob_score: False
+#    #      random_state: None
+#    #      verbose: 0
+#    #      warm_start: False
+#    hyperparameters:
+#      C: 1.0
+#      penalty: l2
+#      solver: lbfgs
+#    evaluation:
+#      precision_score: sklearn.metrics
+#      recall_score: sklearn.metrics
+#      f1_score: sklearn.metrics
+
+#
+#
+#  model3:
+#    module: sklearn.linear_model
+#    name: LogisticRegression
+#    params:
+##      bootstrap: True
+##      ccp_alpha: 0.0
+#      class_weight: balanced
+##      criterion: gini
+##      max_depth: None
+##      max_features: sqrt
+##      max_leaf_nodes: None
+##      max_samples: None
+##      min_impurity_decrease: 0.0
+##      min_samples_leaf: 1
+##      min_samples_split: 2
+##      min_weight_fraction_leaf: 0.0
+##      n_estimators: 100
+##      n_jobs: None
+##      oob_score: False
+##      random_state: None
+#      verbose: 2
+#      warm_start: True
+#    hyperparameters:
+#      C: 1.0
+#      penalty: l2
+#      solver: lbfgs
+#    evaluation:
+#      kappa_value: N
+#      accuracy: N
+#      precision: N
+#      recall_score: Y
+#      f1_score: N
+#
+#
+#  model4:
+#    module: sklearn.linear_model
+#    name: LogisticRegression
+#    params:
+#      bootstrap: True
+#      ccp_alpha: 0.0
+#      class_weight: balanced
+#      criterion: gini
+#      max_depth: None
+#      max_features: sqrt
+#      max_leaf_nodes: None
+#      max_samples: None
+#      min_impurity_decrease: 0.0
+#      min_samples_leaf: 1
+#      min_samples_split: 2
+#      min_weight_fraction_leaf: 0.0
+#      n_estimators: 99
+#      n_jobs: None
+#      oob_score: False
+#      random_state: None
+#      verbose: 1
+#      warm_start: False
+#    hyperparameters:
+#      C: 1.0
+#      penalty: l2
+#      solver: lbfgs
+#    evaluation:
+#      precision_score: sklearn.metrics
+#      kappa_value: N
+#      accuracy: N
+#      precision: N
+#      recall_score: Y
+#      f1_score: N
+

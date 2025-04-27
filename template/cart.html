@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+
+{% include 'navbar.html' %}
+
+<head>
+    <title>{{session['username']}} Cart</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f3f4f6;
+            color: #333;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 60px auto;
+            padding: 40px;
+            background-color: #fff;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        }
+
+        h2 {
+            font-size: 24px;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            margin-left: 400px;
+        }
+
+        .cart-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 30px;
+        }
+
+.cart-item {
+    padding: 30px 25px;
+    margin-bottom: 40px;
+    border-radius: 12px;
+    border: 2px solid #e1e1e1;
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.8);
+    transition: box-shadow 0.3s, transform 0.3s;
+    background-color: #fcfcfc;
+}
+
+        .cart-item-id h3 {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    color: #555;
+    background-color: #e9f5ff;
+    padding: 8px 12px;
+    border-radius: 4px;
+    display: inline-block;
+    text-decoration: underline;
+}
+
+ .cart-item:hover {
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+    transform: translateY(-5px);
+}
+.cart-item:nth-child(odd) {
+    background-color: #f5f5f5;
+}
+
+        .cart-item h3 {
+
+            color: #34495e;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .run-item {
+            margin-top: 20px;
+            padding: 15px 10px;
+            border-radius: 6px;
+            background-color: #fafafa;
+            transition: background-color 0.3s;
+        }
+
+        .run-item:hover {
+            background-color: #f0f0f0;
+        }
+
+        .run-item a {
+            color: #4CAF4F;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .run-item a:hover {
+            color: rgba(10, 105, 36, 0.71);
+        }
+
+        .run-detail {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .run-item:first-child {
+    margin-top: 25px;
+}
+        .action-buttons {
+            display: flex;
+            gap: 15px;
+        }
+
+        .cart-item-remove, .clear-cart-btn, .action-buttons a {
+            padding: 10px 15px;
+            border: none;
+            font-size: 1em;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .cart-item-remove {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .cart-item-remove:hover {
+            background-color: #c0392b;
+        }
+
+        .action-buttons a {
+            background-color: #4CAF4F;
+            color: white;
+            text-decoration: none;
+        }
+
+        .action-buttons a:hover {
+            background-color: #27ae60;
+        }
+
+        .clear-cart-btn {
+            background-color: #f39c12;
+            color: white;
+            width: 100%;
+            font-size: 1em;
+            border-radius: 6px;
+            margin-top: 30px;
+            text-transform: uppercase;
+        }
+
+        .clear-cart-btn:hover {
+            background-color: #d35400;
+        }
+
+        .site__spacer {
+            height: 30px;
+        }
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="site__spacer"></div>
+        <div style="background-color: #eef2f7; padding: 15px; border-radius: 6px; box-shadow: 0 3px 5px rgba(0,0,0,0.1); margin-bottom: 20px;">
+            <h1 class="mb-4" style="font-family: 'Arial', sans-serif; font-weight: bold; color: #333; display: flex; align-items: center;">
+            <i class="fas fa-shopping-cart" style="margin-left: 250px; margin-right: 20px;"></i> {{session['username']}} - Cart</h1>
+        </div>
+        <ul class="cart-list">
+            {% for experiment_id, run_ids in cart.items() %}
+
+
+            <li class="cart-item">
+                <div class="site__spacer"></div>
+                <div class="cart-item-details">
+                    <span class="cart-item-id"><h3>Experiment ID: {{ experiment_id }}</h3></span>
+                    <h3>{{session['username']}} Experiment Comparison Notes: </h3>
+                    <p class="run-notes">
+                            {% for experiment, notes in grouped_cart_notes.items() %}
+                                {% if experiment_id == experiment %}
+
+                                    {% set notes_list = [] %}
+                                    {% for note_group in notes %}
+                                        {% for individual_note in note_group %}
+                                            {% if individual_note and individual_note.strip() %}
+                                                {% set _ = notes_list.append(individual_note) %}
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endfor %}
+
+                                    {% if notes_list %}
+                                        {% for note in notes_list %}
+                                            <p>{{ note }}</p>
+                                        {% endfor %}
+                                    {% else %}
+                                        <p>Comparison Notes not available for Experiment ID: {{experiment}}</p>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                    </p>
+                    <ul>
+                        {% for run_info in run_ids %}
+                        <li class="run-item">
+                            <div class="run-detail">
+                                <a href="/run_details?run_id={{ run_info.run_id }}">Run ID: {{ run_info.run_id }}</a>
+                                <div class="run-detail-priority">
+                                    <strong>Priority: </strong>{{ run_info.run_priority }}
+                                </div>
+                                <div class="action-buttons">
+                                    <form action="{{ url_for('remove_from_cart') }}" method="post" style="display:inline-block; margin-right: 10px;">
+                                        <input type="hidden" name="run_id" value="{{ run_info.run_id }}">
+                                        <button type="submit" class="cart-item-remove">Remove</button>
+                                    </form>
+                                    <a href="{{ url_for('deploy', run_id=run_info.run_id) }}" class="cart-item-remove">Deploy</a>
+                                </div>
+                            </div>
+                            <h3>{{session['username']}} Notes</h3>
+                            <p class="run-notes">{{ run_info.notes }}</p>
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+
+        <form action="{{ url_for('clear_cart') }}">
+            <button type="submit" class="clear-cart-btn">Clear Cart</button>
+        </form>
+    </div>
+
+    <script>
+    $(function() {
+  "use strict";
+
+  var init = "No items yet!";
+  var counter = 0;
+
+  // Initial Cart
+  $(".counter").html(init);
+
+  // Add Items To Basket
+  function addToBasket() {
+    counter++;
+    $(".counter").html(counter).animate({
+      opacity: "0"
+    }, 300, function() {
+      $(".counter").delay(300).animate({
+        opacity: "1"
+      });
+    });
+  }
+
+  // Add To Basket Animation
+  $("button").on("click", function() {
+    addToBasket();
+    $(this).parent().siblings(".product_overlay").css({
+      transform: "translateY(0px)",
+      opacity: "1",
+      transition: "all ease-in-out .45s"
+    }).delay(1500).queue(function() {
+      $(this).css({
+        transform: "translateY(-500px)",
+        opacity: "0",
+        transition: "all ease-in-out .45s"
+      }).dequeue();
+    });
+  });
+});
+
+    </script>
+</body>
+
+</html>

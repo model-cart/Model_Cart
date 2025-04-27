@@ -1,0 +1,136 @@
+## Model configuration for Wine dataset classification
+experiment_name: Wine_Classification
+
+
+data:
+  data_set:  # sklearn.datasets
+  data_file: Experiment_repository/winequality-red.csv #load_wine #winequality-red.csv
+  target: quality
+  delimiter: ; # [;  ,]
+  split-method: train_test_split # KFold, train_test_split
+  n_splits:
+  additional_parameters:
+    train_size:
+    test_size: 0.25
+    random_state: 42
+    stratify:
+    shuffle:
+
+models:
+  model1:
+    module: sklearn.tree
+    name: DecisionTreeClassifier
+    description: checking description first time for model 1 #this model is having different criterion
+    params:
+      ccp_alpha: 0.0
+      class_weight: balanced
+      criterion: gini
+      splitter: best
+      max_depth: 5
+      max_features: sqrt
+      min_samples_leaf: 1
+      min_samples_split: 5
+      random_state: 2
+    evaluation:
+      accuracy_score: sklearn.metrics
+      confusion_matrix: sklearn.metrics
+      classification_report: sklearn.metrics
+      cohen_kappa_score: sklearn.metrics
+      precision_score: sklearn.metrics
+      recall_score: sklearn.metrics
+      f1_score: sklearn.metrics
+
+  model2:
+   module: sklearn.tree
+   name: DecisionTreeClassifier # Type should be name
+   description: checking description first time for model 2 #this model is having different criterion
+   params:
+     ccp_alpha: 0.0
+     class_weight: balanced
+     criterion: gini
+     splitter: best
+     max_depth: 2
+     max_features: sqrt
+     min_samples_leaf: 5
+     min_samples_split: 10
+     random_state: 42
+   evaluation:
+      accuracy_score: sklearn.metrics
+      confusion_matrix: sklearn.metrics
+      classification_report: sklearn.metrics
+      cohen_kappa_score: sklearn.metrics
+      precision_score: sklearn.metrics
+      recall_score: sklearn.metrics
+      f1_score: sklearn.metrics
+
+  model3:
+    module: sklearn.linear_model
+    name: LogisticRegression
+    description: checking description second time for model 3
+    params:
+      tol: 0.0001
+      class_weight: balanced
+      C: 1.0
+      penalty: l2
+      solver: 'lbfgs'
+      verbose: 2
+#      n_jobs: 1
+      max_iter: 100
+      dual: False
+      intercept_scaling: 1
+      multi_class: auto
+      warm_start: True
+      fit_intercept: True
+    evaluation:
+      accuracy_score: sklearn.metrics
+      confusion_matrix: sklearn.metrics
+      classification_report: sklearn.metrics
+      cohen_kappa_score: sklearn.metrics
+      precision_score: sklearn.metrics
+      recall_score: sklearn.metrics
+      f1_score: sklearn.metrics
+
+  model4:
+   module: sklearn.linear_model
+   name: LogisticRegression
+   description: checking description first time for model 4 #this model is having different criterion
+   params:
+     class_weight: balanced
+     C: 10.0
+     penalty: l1
+     solver: 'saga'
+     verbose: 2
+     max_iter: 100
+#     n_jobs: 9
+#     random_state: 5
+   evaluation:
+      accuracy_score: sklearn.metrics
+      confusion_matrix: sklearn.metrics
+      classification_report: sklearn.metrics
+      cohen_kappa_score: sklearn.metrics
+      precision_score: sklearn.metrics
+      recall_score: sklearn.metrics
+      f1_score: sklearn.metrics
+
+  model5:
+   module: xgboost
+   name: XGBClassifier
+   description: checking description first time for model 5 #this model is having different criterion
+   params:
+#      ccp_alpha: 0.0
+#      class_weight: balanced
+#      criterion: gini
+#      splitter: best
+     max_depth: 6
+#      max_features: sqrt
+#      min_samples_leaf: 1
+#      min_samples_split: 5
+   evaluation:
+     accuracy_score: sklearn.metrics
+     confusion_matrix: sklearn.metrics
+     classification_report: sklearn.metrics
+     cohen_kappa_score: sklearn.metrics
+     precision_score: sklearn.metrics
+     recall_score: sklearn.metrics
+     f1_score: sklearn.metrics
+

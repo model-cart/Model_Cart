@@ -1,0 +1,71 @@
+<footer class="site__footer">
+    <div class="grid">
+        <div class="footer__content">
+            <div class="footer__navigation">
+                <nav class="navigation navigation--inline">
+                    <ul>
+                        <li><a href="/"><i class="fas fa-home"></i> Home</a></li>
+                        <li><a href="https://127.0.0.1:5000/about"><i class="fas fa-info-circle"></i> About</a></li>
+                        <li><a href="https://127.0.0.1:5000/contact"><i class="fas fa-envelope"></i> Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+            <div class="footer__social-media">
+                <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+            </div>
+        </div>
+        <div class="footer__copy">
+            <p>&copy; 2024 Model-Cart. All rights reserved.</p>
+        </div>
+    </div>
+</footer>
+
+<style>
+.site__footer {
+  background-color: black;
+  color: white;
+  padding: 1rem 0; /* Reduced padding */
+  position: relative;
+  width: 100%;
+  bottom: 0;
+}
+
+.footer__content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap; /* Ensure it wraps on smaller screens */
+}
+
+.footer__navigation ul, .footer__social-media {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: center; /* Center items vertically */
+}
+
+.footer__navigation a, .footer__social-media a {
+  color: white;
+  padding: 0 0.5rem; /* Reduced horizontal padding */
+  /*font-size: 0.875rem; !* Reduced font size *!*/
+  text-decoration: none;
+}
+
+.footer__social-media a {
+  font-size: 1.25rem; /* Reduced icon size */
+}
+
+.footer__copy {
+  text-align: center;
+  /*margin-top: 0.5rem; !* Reduced margin *!*/
+}
+
+.footer__copy p {
+  margin: 0;
+  font-size: 0.75rem; /* Reduced font size */
+}
+
+</style>

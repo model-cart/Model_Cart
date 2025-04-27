@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Model Report</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <style>
+        .report-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #ddd;
+            padding: 10px 0;
+        }
+        .report-item h2, .report-item p, .report-item a {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container mt-4">
+        <h1 class="mb-4">Model Report</h1>
+        
+            
+                <div class="report-item">
+                    <h2>Experiment Name:</h2>
+                    <p>Adult_Income_xgb_ANALYST</p>
+                </div>
+            
+        
+            
+                <div class="report-item">
+                    <h2>Experiment ID:</h2>
+                    <p>400090639913061870</p>
+                </div>
+            
+        
+            
+                <div class="report-item">
+                    <h2>Thread ID:</h2>
+                    <p>a7c0bb0a-4c09-429c-8e39-c39e35f0a9a5</p>
+                </div>
+            
+        
+            
+                <div class="report-item">
+                    <h2>Run ID:</h2>
+                    <p>2eb5503f54d64509a482439e96d72d68</p>
+                </div>
+            
+        
+            
+                <div class="report-item">
+                    <h2>Model Name:</h2>
+                    <p>XGBClassifier</p>
+                </div>
+            
+        
+            
+                <div class="report-item">
+                    <h2>Model Description:</h2>
+                    <p>Checking SHap Value using the dataset from shap website</p>
+                </div>
+            
+        
+            
+                <h2>Parameters</h2>
+                <table class="table table-bordered table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                            <tr>
+                                <td>max_depth</td>
+                                <td>6</td>
+                            </tr>
+                        
+                    </tbody>
+                </table>
+            
+        
+            
+                <h2>Data-Parameters</h2>
+                <table class="table table-bordered table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                            <tr>
+                                <td>test_size</td>
+                                <td>0.2</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>random_state</td>
+                                <td>42</td>
+                            </tr>
+                        
+                    </tbody>
+                </table>
+            
+        
+            
+                <h2>Performance</h2>
+                <table class="table table-bordered table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                            <tr>
+                                <td>accuracy_score</td>
+                                <td>0.8753262705358513</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>cohen_kappa_score</td>
+                                <td>0.6450814112946468</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>precision_score</td>
+                                <td>0.8383491639304561</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>recall_score</td>
+                                <td>0.8095166181041906</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>f1_score</td>
+                                <td>0.8223344571759524</td>
+                            </tr>
+                        
+                    </tbody>
+                </table>
+            
+        
+            
+                <h2>SHAP values</h2>
+                <table class="table table-bordered table-striped">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        
+                            <tr>
+                                <td>Age</td>
+                                <td>0.8723657487207758</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>Capital_Gain</td>
+                                <td>0.8320400013337056</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>Relationship</td>
+                                <td>0.7251637466198222</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>Marital_Status</td>
+                                <td>0.6233904648982771</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>Education_Num</td>
+                                <td>0.5044231821479742</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>Occupation</td>
+                                <td>0.431983282534194</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>Hours_per_week</td>
+                                <td>0.42872124643428783</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>Sex</td>
+                                <td>0.20785131007691846</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>Capital_Loss</td>
+                                <td>0.13703981101570611</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>Workclass</td>
+                                <td>0.13252853818455257</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>Country</td>
+                                <td>0.056734062216212196</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>Race</td>
+                                <td>0.05347912533840879</td>
+                            </tr>
+                        
+                    </tbody>
+                </table>
+            
+        
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

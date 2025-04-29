@@ -1,6 +1,18 @@
 ## Model_Cart
 
-**Model Cart** is a meta framework that streamlines the end-to-end lifecycle of machine learning experiments. It lets you:
+**Model Cart**: a comprehensive
+open-source meta-framework that integrates explainability
+methods, human intervention, and reproducibility.
+By combining state-of-the-art approaches (currently with SHAP)
+for model explainability, MLflow for reproducibility, and
+human-in-the-loop approach, this work contributes to addressing
+the challenges of transparency, trustworthiness, and
+reliability in end-to-end model training. Model-Cart incorporates
+explanations of model predictions, seamless integration
+with popular ML libraries, and a custom built module based
+on a novel method to quantify model explanation similarities
+between ML models with an intuitive UI to facilitate
+model training and evaluation with human-in-the-loop. It lets you:
 
 - **Define & Launch Experiments**  
   Describe your runs with YAML configurations and CSV datasets; Model Cart parses your specs and kicks off training jobs with the specified parameters.
